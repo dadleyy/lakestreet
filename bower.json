@@ -1,0 +1,14 @@
+{
+  "name": "lakestreet",
+  "version": "0.0.0",
+  "homepage": "https://github.com/dadleyy/lakestreet",
+  "authors": [
+    "Danny Hadley <dadley@sizethreestudios.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ]
+}

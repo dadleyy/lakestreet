@@ -3,5 +3,11 @@
   "version": "0.0.0",
   "description": "just a fun website for the awesome band lakestreetdive",
   "author": "Danny Hadley",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "grunt": "^0.4.2",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-smash": "^0.1.0",
+    "grunt-contrib-compass": "^0.7.2"
+  }
 }
