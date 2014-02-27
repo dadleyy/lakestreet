@@ -4,6 +4,10 @@
   "description": "just a fun website for the awesome band lakestreetdive",
   "author": "Danny Hadley",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dadleyy/lakestreet"
+  },
   "dependencies": {
     "grunt": "^0.4.2",
     "grunt-contrib-clean": "^0.5.0",
