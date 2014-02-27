@@ -31,20 +31,27 @@ module.exports = function(grunt) {
     uglify: {
       build: {
         files: {
-          'public/js/app.min.js': ['public/js/app.js']
+          'public/js/app.min.js': ['public/js/app.js'],
+          'public/js/templates.min.js': ['public/js/templates.js']
         }
       }
     },
 
     ngtemplates:  {
-      app: {
-        src: 'src/html/**.html',
-        dest: 'public/js/templates.js'
+      build: {
+        src: 'src/html/**/*.html',
+        dest: 'public/js/templates.js',
+        options: {
+          module: 'lakestreet',
+          url: function(url) { 
+            return url.replace(/^src\/html\/(.*)\/(.*)\.html$/,'$1.$2');
+          }
+        }
       }
     }
 
   });
 
-  grunt.registerTask('default', ['clean','smash','compass','uglify','ngtemplates']);
+  grunt.registerTask('default', ['clean','smash','compass','ngtemplates','uglify']);
 
 };
