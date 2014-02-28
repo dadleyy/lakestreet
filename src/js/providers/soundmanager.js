@@ -1,3 +1,22 @@
+(function(SM) {
+
+var deferred_load;
+
+function finished() {
+  deferred_load.resolve(SM);
+}
+
+SM.flashVersion = 9;
+SM.preferFlash = true;
+
+SM.setup({
+  debugMode: false,
+  preferFlash: true,
+  flashVersion: 9,
+  url: '/swf/',
+  onready: finished
+});
+
 ld.provider('SoundManager', [function() {
 
   var SoundManager = {},
@@ -15,19 +34,11 @@ ld.provider('SoundManager', [function() {
   };
 
   SoundManager.route_resolution = ['$q', function($q) {
-    var deferred = $q.defer();
-
-    function finished() {
-      ext(instance, SM, fns);
-      deferred.resolve(instance);
-    }
-
-    SM.setup({
-      debugMode: false,
-      onready: finished
+    deferred_load = $q.defer();
+    deferred_load.promise.then(function() {
+      instance = ext(SM, fns);
     });
-
-    return deferred.promise;
+    return deferred_load.promise;
   }];
 
   SoundManager['$get'] = function() {
@@ -37,3 +48,5 @@ ld.provider('SoundManager', [function() {
   return SoundManager;
 
 }]);
+
+})(soundManager);

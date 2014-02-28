@@ -6,6 +6,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-smash');
   grunt.loadNpmTasks('grunt-angular-templates');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   grunt.initConfig({
 
@@ -13,7 +14,8 @@ module.exports = function(grunt) {
 
     clean: {
       scripts: ["public/js"],
-      stylesheets: ["public/css"]
+      stylesheets: ["public/css"],
+      soundmanager: ['public/swf']
     },
 
     smash: {
@@ -55,21 +57,28 @@ module.exports = function(grunt) {
     },
 
     watch: {
-
       scripts: {
         files: ['src/js/**/*.js', 'src/html/**/*.html'],
         tasks: ['clean:scripts','smash', 'ngtemplates', 'uglify']
       },
-
       stylesheets: {
         files: ['src/sass/**/*.sass'],
         tasks: ['clean:stylesheets','compass']
       },
-      
+    },
+
+    copy: {
+      soundmanager: {
+        expand: true,
+        src: ['bower_components/soundmanager2/swf/*'],
+        dest: 'public/swf/',
+        flatten: true
+      }
     }
 
   });
 
   grunt.registerTask('default', ['clean:scripts','clean:stylesheets', 'smash','compass','ngtemplates','uglify']);
+  grunt.registerTask('soundmanager', ['clean:soundmanager','copy:soundmanager']);
 
 };

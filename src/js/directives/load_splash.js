@@ -3,8 +3,8 @@ ld.directive('ldLoadSplash', [ function() {
 
   return {
     restrict: 'EA',
-    templateUrl: 'directives.load_splash',
     replace: true,
+    templateUrl: 'directives.load_splash',
     link: function($scope, element, attrs) {
       $scope.loading = false;
       $scope.hidden = false;

@@ -13,7 +13,7 @@
     </div> 
   </div>
   <div ld-footer></div>
-  <script src="/js/app.min.js" type="text/javascript"></script>
+  <script src="/js/app.js" type="text/javascript"></script>
   <script src="/js/templates.min.js" type="text/javascript"></script>
 </body>
 </html>
