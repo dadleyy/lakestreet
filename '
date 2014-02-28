@@ -1,0 +1,21 @@
+ld.directive('ldTrack', ['SoundManager', function(SoundManager) {
+
+  return {
+    replace: true,
+    restrict: 'EA',
+    templateUrl: 'directives.track',
+    scope: { track: '=' },
+    link: function($scope, element, attrs) {
+      $scope.is_playing = false;
+      var sound = soundManager.createSound({
+        url: $scope.track.streaming_url
+      });
+
+      $scope.play = function() {
+        console.log('whoa');
+        sound.play();
+      }
+    }
+  }
+
+}]);
