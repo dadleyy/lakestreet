@@ -1,6 +1,10 @@
 <div class="track">
-  <h3><%= track.title %></h3>
-  <p><%= is_playing %></p>
-  <button ng-click="play()" ng-if="!is_playing">Play</button>
-  <button ng-click="stop()" ng-if="is_playing">Stop</button>
+  <div class="inner">
+    <h3><%= track.title %></h3>
+    <div ld-waveform track="track"></div>
+    <div class="actions">
+      <button ng-click="play()" ng-if="!is_playing">Play</button>
+      <button ng-click="stop()" ng-if="is_playing">Stop</button>
+    </div>
+  </div>
 </div>
