@@ -1,6 +1,29 @@
 @import "base"
+@import "compass/reset"
 
 html, body
   width: 100%
   height: 100%
   +pie-clearfix
+  background-color: $bg-color
+  &.preload *
+    +transition(none !important)
+
+.page
+  $gutter: 20px
+  +calc(min-height, 100% - #{$gutter})
+  +calc(width, 100% - #{$gutter})
+  margin: 10px 10px 0 10px
+  background: lighten($bg-color, 65%)
+  position: relative
+  z-index: 9
+
+  .content
+    padding: 20px
+
+@import "shared/typeography"
+
+@import "directives/footer"
+@import "directives/load_splash"
+@import "directives/album"
+@import "directives/track"

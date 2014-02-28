@@ -5,12 +5,16 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-smash');
   grunt.loadNpmTasks('grunt-angular-templates');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.initConfig({
 
     pkg: grunt.file.readJSON('package.json'),
 
-    clean: ["public/js", "public/css"],
+    clean: {
+      scripts: ["public/js"],
+      stylesheets: ["public/css"]
+    },
 
     smash: {
       build: {
@@ -48,10 +52,24 @@ module.exports = function(grunt) {
           }
         }
       }
+    },
+
+    watch: {
+
+      scripts: {
+        files: ['src/js/**/*.js', 'src/html/**/*.html'],
+        tasks: ['clean:scripts','smash', 'ngtemplates', 'uglify']
+      },
+
+      stylesheets: {
+        files: ['src/sass/**/*.sass'],
+        tasks: ['clean:stylesheets','compass']
+      },
+      
     }
 
   });
 
-  grunt.registerTask('default', ['clean','smash','compass','ngtemplates','uglify']);
+  grunt.registerTask('default', ['clean:scripts','clean:stylesheets', 'smash','compass','ngtemplates','uglify']);
 
 };

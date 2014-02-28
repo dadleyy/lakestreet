@@ -1,0 +1,6 @@
+<div class="track">
+  <h3><%= track.title %></h3>
+  <p><%= is_playing %></p>
+  <button ng-click="play()" ng-if="!is_playing">Play</button>
+  <button ng-click="stop()" ng-if="is_playing">Stop</button>
+</div>
