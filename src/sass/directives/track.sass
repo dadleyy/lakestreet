@@ -1,0 +1,16 @@
+@import "../base"
+
+.track
+  float: left
+  width: 50%
+  .inner 
+    +pie-clearfix
+    padding: 10px 0
+
+  &:nth-child(even)
+    .inner
+      padding-right: 10px
+
+  &:nth-child(odd)
+    .inner
+      padding-left: 10px
