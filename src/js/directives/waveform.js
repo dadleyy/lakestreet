@@ -6,10 +6,12 @@ ld.directive('ldWaveform', [function() {
     templateUrl: 'directives.waveform',
     require: '^ldTrack',
     link: function($scope, element, attrs, trackController) {
-      function updateWave(sound) {
-        console.log(sound.waveformData);
+      function update(sound) {
+        console.log(sound);
       }
-      trackController.addListener(updateWave);
+      
+
+      trackController.addListener(update);
     }
   };
 

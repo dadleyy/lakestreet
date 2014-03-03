@@ -1,6 +1,8 @@
-<div class="track">
+<div class="track" ld-scroll-listener>
   <div class="inner">
-    <h3><%= track.title | lowercase %></h3>
+    <div class="track-title">
+      <h3 class="title"><%= track.title %></h3>
+    </div>
     <div ld-waveform track="track"></div>
     <div class="actions">
       <button ng-click="play()" ng-if="!is_playing">Play</button>

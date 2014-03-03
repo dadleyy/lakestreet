@@ -2,3 +2,15 @@
   #{$property}: -webkit-calc(#{$expression}); 
   #{$property}: calc(#{$expression}); 
 }
+
+@mixin diagonal-border {
+  @include background-image(linear-gradient(
+    45deg, 
+    transparent 0%, 
+    transparent 40%, 
+    black 41%, 
+    black 60%, 
+    transparent 61%, 
+    transparent 100%
+  ));
+}

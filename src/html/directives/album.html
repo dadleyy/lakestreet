@@ -1,6 +1,10 @@
-<div class="album">
+<div class="album" ld-scroll-listener>
   <div class="inner">
-    <h1 class="light"><%= album.title %></h1>
-    <div ng-repeat="track in album.tracks" ld-track track="track"></div>
+    <div class="album-title">
+      <h1 class="title ff-jos"><%= album.title %></h1>
+    </div>
+    <div class="track-list">
+      <div ng-repeat="track in album.tracks" ld-track track="track"></div>
+    </div>
   </div>
 </div>
