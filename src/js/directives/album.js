@@ -6,7 +6,6 @@ ld.directive('ldAlbum', [function() {
     templateUrl: 'directives.album',
     scope: { album: '=' },
     link: function($scope, element, attr) {
-
     }
   };
 

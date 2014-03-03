@@ -1,5 +1,10 @@
 <div class="home content">
-  <div ng-repeat="album in albums">
-    <div ld-album album="album"></div>
+  <div class="intro">
+    <div class="inner">
+      <div ld-text-splitter></div>
+    </div>
+  </div>
+  <div class="discography">
+    <div ng-repeat="album in albums" ld-album album="album"></div>
   </div>
 </div>

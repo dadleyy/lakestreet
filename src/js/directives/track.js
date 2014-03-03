@@ -1,4 +1,4 @@
-ld.directive('ldTrack', ['SoundManager', function(SoundManager) {
+ld.directive('ldTrack', ['SoundManager', 'HtmlUtils', function(SoundManager, HtmlUtils) {
 
   var is_fn = angular.isFunction;
 
@@ -18,10 +18,30 @@ ld.directive('ldTrack', ['SoundManager', function(SoundManager) {
     link: function($scope, element, attrs, controller) {
       var sound = null;
       $scope.is_playing = false;
+      $scope.dist = 0;
 
       function stopCallback() {
         $scope.is_playing = false;
         sound.destruct();
+        try {
+          $scope.$digest();
+        }catch(e) { }
+      }
+
+      function scrollListener(evt, page_top) {
+        var offset = { y: 0, x: 0},
+            ele_offset = HtmlUtils.getOffset(element[0], offset),
+            ele_mid = offset.y + (element[0].offsetHeight * 0.5),
+            window_height = window.innerHeight,
+            page_mid = page_top + (window_height * 0.5),
+            dist = Math.abs(page_mid - ele_mid),
+            opacity = 1 - (dist * 0.01);
+
+        if(opacity < 0)
+          opacity = 0;
+
+        element.css({opacity:opacity});
+
         try {
           $scope.$digest();
         }catch(e) { }
@@ -50,6 +70,9 @@ ld.directive('ldTrack', ['SoundManager', function(SoundManager) {
         $scope.is_playing = false;
         sound.stop();
       }
+
+
+      $scope.$on('ldScroll', scrollListener);
     }
   }
 
