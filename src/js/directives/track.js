@@ -6,6 +6,7 @@ ld.directive('ldTrack', ['SoundManager', 'HtmlUtils', function(SoundManager, Htm
     replace: true,
     restrict: 'EA',
     templateUrl: 'directives.track',
+    require: ['^ldAlbum', 'ldTrack'],
     scope: { track: '=' },
     controller: ['$scope', function($scope) {
       $scope.play_listeners = [];
@@ -15,33 +16,18 @@ ld.directive('ldTrack', ['SoundManager', 'HtmlUtils', function(SoundManager, Htm
           $scope.play_listeners.push(fn);
       }
     }],
-    link: function($scope, element, attrs, controller) {
-      var sound = null;
+    link: function($scope, element, attrs, controllers) {
+      var sound = null,
+          trackController = controllers[1],
+          albumController = controllers[0];
+
       $scope.is_playing = false;
       $scope.dist = 0;
 
       function stopCallback() {
         $scope.is_playing = false;
         sound.destruct();
-        try {
-          $scope.$digest();
-        }catch(e) { }
-      }
-
-      function scrollListener(evt, page_top) {
-        var offset = { y: 0, x: 0},
-            ele_offset = HtmlUtils.getOffset(element[0], offset),
-            ele_mid = offset.y + (element[0].offsetHeight * 0.5),
-            window_height = window.innerHeight,
-            page_mid = page_top + (window_height * 0.5),
-            dist = Math.abs(page_mid - ele_mid),
-            opacity = 1 - (dist * 0.01);
-
-        if(opacity < 0)
-          opacity = 0;
-
-        element.css({opacity:opacity});
-
+        albumController.setPlayState(false);
         try {
           $scope.$digest();
         }catch(e) { }
@@ -64,15 +50,20 @@ ld.directive('ldTrack', ['SoundManager', 'HtmlUtils', function(SoundManager, Htm
         $scope.is_playing = true;
         SoundManager.setActiveSound(sound);
         sound.play();
+        albumController.setPlayState(true);
       }
 
       $scope.stop = function() {
         $scope.is_playing = false;
         sound.stop();
       }
+     
+      $scope.toggle = function() {
+        return $scope[$scope.is_playing ? 'stop' : 'play']();
+      }
 
+      $scope.$on('homeScroll', function() { });
 
-      $scope.$on('ldScroll', scrollListener);
     }
   }
 

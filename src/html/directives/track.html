@@ -1,12 +1,12 @@
-<div class="track" ld-scroll-listener>
+<div class="track" ng-class="{playing: is_playing}">
   <div class="inner">
-    <div class="track-title">
-      <h3 class="title"><%= track.title %></h3>
+    <div class="track-title" ng-click="toggle()">
+      <h3 class="title ff-glober black"><%= track.title %></h3>
     </div>
-    <div ld-waveform track="track"></div>
     <div class="actions">
-      <button ng-click="play()" ng-if="!is_playing">Play</button>
-      <button ng-click="stop()" ng-if="is_playing">Stop</button>
+      <button class="ff-thirsty bold" ng-click="play()" ng-if="!is_playing">Play</button>
+      <button class="ff-thirsty bold" ng-click="stop()" ng-if="is_playing">Stop</button>
     </div>
   </div>
+  <div ld-waveform track="track" active="is_playing"></div>
 </div>

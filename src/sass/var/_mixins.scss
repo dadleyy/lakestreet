@@ -3,14 +3,15 @@
   #{$property}: calc(#{$expression}); 
 }
 
-@mixin diagonal-border {
-  @include background-image(linear-gradient(
-    45deg, 
+@mixin diagonal-stripe($degree:45deg, $line-color:$dark-grey-color) {
+  @include linear-gradient(
+    $degree, 
     transparent 0%, 
     transparent 40%, 
-    black 41%, 
-    black 60%, 
+    $line-color 41%, 
+    $line-color 60%, 
     transparent 61%, 
     transparent 100%
-  ));
+  );
+  background-size: 5px 5px;
 }

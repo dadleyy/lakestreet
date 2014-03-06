@@ -4,7 +4,7 @@ ld.config(['$routeProvider', 'SoundManagerProvider', function($routeProvider, So
     templateUrl: 'views.home',
     controller: 'HomeController',
     resolve: {
-      Albums: ['$q', 'CampApi', 'ALBUM_IDS', function($q, CampApi, ALBUM_IDS) {
+      Albums: ['$q', 'CampApi', 'XhrMonitor', 'ALBUM_IDS', function($q, CampApi, XhrMonitor, ALBUM_IDS) {
         var defer = $q.defer(),
             albums = [];
         
@@ -20,11 +20,15 @@ ld.config(['$routeProvider', 'SoundManagerProvider', function($routeProvider, So
             defer.resolve(albums);
         }
 
+        function failOut() {
+          defer.reject();
+        }
+
         for(var i = 0; i < ALBUM_IDS.length; i++) {
           var album = new CampApi.Albumn({album_id: ALBUM_IDS[i]}),
               promise = album.$info();
 
-          promise.then(checkStatus);
+          promise.then(checkStatus, failOut);
           albums.push(album);
         }
 

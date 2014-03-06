@@ -1,8 +1,6 @@
 @import "../base"
 
-h1, p, em, h2, h3, h4, h5,
-body
-  font-family: $font-regular
+h1, p, em, h2, h3, h4, h5, body
   font-weight: normal
   font-style: normal
   color: $font-color-default
@@ -10,16 +8,18 @@ body
 h1
   font-size: $font-size-large
 
-.ff-fat 
-  font-family: $font-black
+.ff-glober
+  font-family: $font-glober-bold
 
-.ff-jos
-  font-family: $font-jos
+  &.black
+    font-family: $font-glober-black
 
-.tt
-  font-family: $font-jos
-  font-weight: 400
-  em 
-    font-family: $font-jos
-    font-style: normal
-    font-weight: 600
+.ff-thirsty
+  font-family: $font-thirsty-light
+
+  &.bold
+    font-family: $font-thirsty-bold
+
+  &.black 
+    font-family: $font-thirsty-black
+

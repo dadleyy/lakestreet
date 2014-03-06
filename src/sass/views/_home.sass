@@ -1,63 +1,22 @@
 .content.home
+  position: absolute
+  left: 20px
+  right: 20px
+  top: 0px
+  bottom: 0px
+  overflow: hidden
+
+  .scroll-inner
+    position: absolute
+    left: -30px
+    right: -30px
+    top: 0px
+    bottom: 0px
+    overflow-y: scroll
+    overflow-x: hidden
+
   .discography
-    background: $light-grey-color
-
-  .intro
-    padding: 50px 0
-    background: $light-grey-color
-    text-align: center
-    left: -20px
-
-    .title-text
-      +transition(all 800ms ease)
-      z-index: 10
-      text-align: center
-      text-transform: uppercase
-      padding: 120px 0
-
-    .info-text
-      +transition(margin 1200ms ease, opacity 600ms ease)
-      background: $light-grey-color
-      opacity: 0.0
-      width: 380px 
-      overflow: hidden
-      padding: 10px 0
-
-      .inner
-        +transition(margin 400ms ease)
-        text-align: justify
-        opacity: 1.0
-        margin-left: -400px
-        width: 360px
-        padding: 0px 40px
-        height: 300px
-        overflow-y: hidden 
-
-    .text-splitter
-      padding: 100px 0
-      &.an-in
-        .title-text
-          right: -10%
-
-        .info-text
-          opacity: 1.0
-          width: 380px
-          &:after
-            +background(linear-gradient(transparent, $dark-grey-color, transparent))
-            content: ''
-            position: absolute 
-            left: 0px
-            top: 0
-            display: block
-            width: 1px
-            height: 100%
-
-      &.an-on
-        .info-text
-          margin-left: 0px
-          .inner
-            opacity: 1.0
-            margin-left: -30px
-            overflow-y: scroll
-
-
+    position: absolute
+    right: -30px
+    left: -30px
+    height: 100%

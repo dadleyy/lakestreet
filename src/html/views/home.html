@@ -1,10 +1,7 @@
 <div class="home content">
-  <div class="intro">
-    <div class="inner">
-      <div ld-text-splitter></div>
+  <div class="scroll-inner" ld-scroll-broadcaster broadcast-name="homeScroll">
+    <div class="discography">
+      <div ng-repeat="album in albums" ld-album album="album"></div>
     </div>
-  </div>
-  <div class="discography">
-    <div ng-repeat="album in albums" ld-album album="album"></div>
   </div>
 </div>

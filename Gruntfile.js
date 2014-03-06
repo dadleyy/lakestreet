@@ -1,12 +1,12 @@
 module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-smash');
   grunt.loadNpmTasks('grunt-angular-templates');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-sass');
 
   grunt.initConfig({
 
@@ -25,11 +25,13 @@ module.exports = function(grunt) {
       }
     },
 
-    compass: {
+    sass: {
       build: {
         options: {
-          sassDir: 'src/sass',
-          cssDir: 'public/css'
+          loadPath: require('node-neat').includePaths
+        },
+        files: {
+          'public/css/app.css': 'src/sass/app.sass'
         }
       }
     },
@@ -63,7 +65,7 @@ module.exports = function(grunt) {
       },
       stylesheets: {
         files: ['src/sass/**/*.sass'],
-        tasks: ['clean:stylesheets','compass']
+        tasks: ['clean:stylesheets','sass']
       },
     },
 
@@ -78,7 +80,7 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.registerTask('default', ['clean:scripts','clean:stylesheets', 'smash','compass','ngtemplates','uglify']);
+  grunt.registerTask('default', ['clean:scripts','clean:stylesheets', 'smash','sass','ngtemplates','uglify']);
   grunt.registerTask('soundmanager', ['clean:soundmanager','copy:soundmanager']);
 
 };

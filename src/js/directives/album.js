@@ -5,7 +5,15 @@ ld.directive('ldAlbum', [function() {
     restrict: 'EA',
     templateUrl: 'directives.album',
     scope: { album: '=' },
-    link: function($scope, element, attr) {
+    controller: ['$scope', function($scope) {
+
+      this.setPlayState = function(state) {
+        $scope.playing = state;
+      };
+
+    }],
+    link: function($scope, element, attr) { 
+      $scope.playing = false;  
     }
   };
 

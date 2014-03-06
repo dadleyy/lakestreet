@@ -1,4 +1,4 @@
-ld.directive('ldScrollBroadcaster', [function() {
+ld.directive('ldScrollBroadcaster', ['$rootScope', function($rootScope) {
 
   return {
     restrict: 'A',
@@ -11,6 +11,9 @@ ld.directive('ldScrollBroadcaster', [function() {
       function update() {
         var ypos = scoll_ele[is_body ? 'scrollY' : 'scrollTop'];
         $scope.$broadcast(broadcast_name, ypos);
+        try {
+          $rootScope.$digest();
+        } catch(e) { }
       }
 
       $scoll_ele.bind('scroll', update);
