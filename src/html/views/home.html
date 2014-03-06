@@ -1,7 +1,15 @@
 <div class="home content">
-  <div class="scroll-inner" ld-scroll-broadcaster broadcast-name="homeScroll">
-    <div class="discography">
-      <div ng-repeat="album in albums" ld-album album="album"></div>
+  <div class="intro">
+    <div class="inner" ld-scroll-lock>
+      <div class="title">
+        <h1 class="title-text ff-thirsty bold">lake street dive</h1>
+      </div>
+      <div class="tuck-info">
+        <p class="ff-glober bold">scroll for discography</p>
+      </div>
     </div>
+  </div>
+  <div class="discography">
+    <div ng-repeat="album in albums" ld-album album="album"></div>
   </div>
 </div>
