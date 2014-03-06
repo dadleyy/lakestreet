@@ -14,23 +14,31 @@ html, body
   $gutter: 10px
   overflow: hidden
   background: $page-color
-  z-index: 9
   position: absolute
   top: $gutter
-  left: $gutter 
+  bottom: $gutter
+  left: $gutter
   right: $gutter
-  bottom: $gutter 
+  z-index: 9
+
+  &:before
+    content: ''
+    display: block
+    position: fixed
+    width: 100%
+    height: $gutter
+    background: $dark-grey-color
+    left: 0px
+    top: 0px
+    z-index: 1000
 
   [ng-view]
     +clearfix
-    position: absolute 
-    left: -20px
-    right: -20px
-    padding: 0 20px
-    z-index: 8
+    position: relative
     height: 100%
-    overflow-y: scroll
-    overflow-x: hidden
+    width: 150%
+    margin-left: -25%
+    overflow-y: scroll 
 
 @import "shared/typeography"
 @import "shared/form-elements"
