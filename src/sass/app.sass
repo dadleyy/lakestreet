@@ -1,35 +1,36 @@
 @import "base"
-@import "compass/reset"
+@import "shared/reset"
 
 html, body
-  +pie-clearfix
+  +clearfix
   width: 100%
   height: 100%
   background-color: $dark-grey-color
+  position: relative
   &.preload *
     +transition(none !important)
 
 .page
-  $gutter: 20px
+  $gutter: 10px
   overflow: hidden
-  margin: 10px 10px 0 10px
   background: $page-color
   z-index: 9
-  &:before
-    content: ''
-    height: 10px
-    width: 100%
-    position: fixed
-    left: 0px
-    top: 0px
-    background: $dark-grey-color
-    display: block
-    z-index: 10
+  position: absolute
+  top: $gutter
+  left: $gutter 
+  right: $gutter
+  bottom: $gutter 
 
-  .content
-    +pie-clearfix
-    position: relative
+  [ng-view]
+    +clearfix
+    position: absolute 
+    left: -20px
+    right: -20px
+    padding: 0 20px
     z-index: 8
+    height: 100%
+    overflow-y: scroll
+    overflow-x: hidden
 
 @import "shared/typeography"
 @import "shared/form-elements"
@@ -38,6 +39,7 @@ html, body
 @import "directives/load-splash"
 @import "directives/album"
 @import "directives/track"
+@import "directives/waveform"
 @import "directives/text-splitter"
 
 @import "views/home"

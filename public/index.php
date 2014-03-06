@@ -3,11 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <title>lakestreet dive | interactive</title>
-  <link href='http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700' rel='stylesheet' type='text/css'>
   <link href="/fonts/index.css" type="text/css" rel="stylesheet" />
   <link href="/css/app.css" type="text/css" rel="stylesheet" />
 </head>
-<body class="preload" ld-scroll-broadcaster>
+<body class="preload">
   <div ld-load-splash></div>
   <div class="page">
     <div ng-view>

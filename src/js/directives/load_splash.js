@@ -1,6 +1,5 @@
 ld.directive('ldLoadSplash', [ function() {
 
-
   return {
     restrict: 'EA',
     replace: true,
@@ -24,7 +23,6 @@ ld.directive('ldLoadSplash', [ function() {
         $scope.$digest();
         hide_to = setTimeout(hide, hide_time);
       }
-
 
       function routeStart() {
         $scope.loading = true;

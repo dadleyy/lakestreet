@@ -1,7 +1,7 @@
-<div class="album" ld-scroll-listener>
+<div class="album" ng-class="{playing: playing}">
   <div class="inner">
     <div class="album-title">
-      <h1 class="title ff-jos"><%= album.title %></h1>
+      <h1 class="title ff-thirsty black"><%= album.title %></h1>
     </div>
     <div class="track-list">
       <div ng-repeat="track in album.tracks" ld-track track="track"></div>
