@@ -1,34 +1,52 @@
 .album
   text-align: center
+  > .inner
+    padding: 120px 0 0 0
+
+  &:first-child
+    > .inner
+      padding: 0 0 0 0
+
   .album-title
     height: 100px
     overflow: hidden
     width: 100%
     .title
+      +transition(box-shadow 400ms ease, opacity 500ms ease)
+      opacity: 0.0
+
+    .locker
       height: 100px
       display: block
 
     &.locked
-      .title
+      .locker
         height: 90px
         position: fixed
         bottom: 10px
         right: 10px
         left: 10px
         text-align: center
+        background-color: $page-color
+        .title
+          padding: 5px 10px 0 10px
+          display: inline-block
+          margin: 0 auto
+          box-shadow: 0px -2px 2px -2px rgba(0,0,0,0.5)
+          opacity: 1.0
 
   .track-list
-    opacity: 0.0
+    opacity: 1.0
     display: block
 
   &.passed-mid
-    .inner
+    > .inner
       position: relative
     .album-title
       &.locked
-        .title
+        .locker
           position: absolute 
           left: 0
           right: 0
-          bottom: 0px !important
+          bottom: -120px !important
           height: 100px

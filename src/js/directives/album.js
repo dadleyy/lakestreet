@@ -7,7 +7,7 @@ ld.directive('ldAlbum', [function() {
   };
 
   Album.prototype.setPlayState = function(state) {
-    $scope.playing = state;
+    this.$scope.playing = state;
   };
 
   Album.prototype.initialize = function($scope, element) {
@@ -16,8 +16,10 @@ ld.directive('ldAlbum', [function() {
   };
 
   Album.prototype.onScroll = function(page_top, bounding_box) {
-    var page_mid = page_top + window.innerHeight;
-    if(bounding_box.bottom < page_mid) {
+    var page_mid = page_top + window.innerHeight,
+        bottom_buffer = 120;
+
+    if(bounding_box.bottom + bottom_buffer < page_mid) {
       this.element.addClass('passed-mid');
     } else {
       this.element.removeClass('passed-mid');

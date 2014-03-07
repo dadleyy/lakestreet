@@ -1,6 +1,38 @@
 ld.directive('ldTrack', ['SoundManager', 'HtmlUtils', function(SoundManager, HtmlUtils) {
 
-  var is_fn = angular.isFunction;
+  function Track() {
+    this.$scope = null;
+    this.element = null;
+    this.album = null;
+    this.sound = null;
+  };
+
+  Track.prototype.initialize = function($scope, element, album) {
+    this.$scope = $scope;
+    this.element = element;
+    this.album = album;
+
+    this.sound = SoundManager.createSound({
+      url: $scope.track.streaming_url,
+      onstop: $scope.stop
+    });
+  };
+
+  Track.prototype.addListener = function() {
+  };
+
+  Track.prototype.play = function() {
+    this.sound.play();
+    this.album.setPlayState(true);
+    SoundManager.setActiveSound(this.sound);
+  };
+
+  Track.prototype.stop = function() {
+    this.sound.stop();
+    this.album.setPlayState(false);
+  };
+
+  Track.$inject = ['$scope'];
 
   return {
     replace: true,
@@ -8,14 +40,7 @@ ld.directive('ldTrack', ['SoundManager', 'HtmlUtils', function(SoundManager, Htm
     templateUrl: 'directives.track',
     require: ['^ldAlbum', 'ldTrack'],
     scope: { track: '=' },
-    controller: ['$scope', function($scope) {
-      $scope.play_listeners = [];
-
-      this.addListener = function(fn) {
-        if(is_fn(fn))
-          $scope.play_listeners.push(fn);
-      }
-    }],
+    controller: Track,
     link: function($scope, element, attrs, controllers) {
       var sound = null,
           trackController = controllers[1],
@@ -24,47 +49,24 @@ ld.directive('ldTrack', ['SoundManager', 'HtmlUtils', function(SoundManager, Htm
       $scope.is_playing = false;
       $scope.dist = 0;
 
-      function stopCallback() {
-        $scope.is_playing = false;
-        sound.destruct();
-        albumController.setPlayState(false);
-        try {
-          $scope.$digest();
-        }catch(e) { }
-      }
-
-      function playCallback() {
-        for(var i = 0; i < $scope.play_listeners.length; i++) {
-          $scope.play_listeners[i](sound);
-        }
-      }
-
       $scope.play = function() {
-        sound = SoundManager.createSound({
-          url: $scope.track.streaming_url,
-          onstop: stopCallback,
-          whileplaying: playCallback,
-          useWaveformData: true
-        });
-
         $scope.is_playing = true;
-        SoundManager.setActiveSound(sound);
-        sound.play();
-        albumController.setPlayState(true);
-      }
+        trackController.play();
+      };
 
       $scope.watchMid = function() {
       };
 
       $scope.stop = function() {
         $scope.is_playing = false;
-        sound.stop();
+        trackController.stop();
       }
      
       $scope.toggle = function() {
         return $scope[$scope.is_playing ? 'stop' : 'play']();
       }
 
+      trackController.initialize($scope, element, albumController);
     }
   }
 
