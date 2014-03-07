@@ -9,7 +9,7 @@ ld.service('HtmlUtils', [function() {
     ref_obj.x += element.offsetLeft;
     ref_obj.y += element.offsetTop;
     HtmlUtils.getOffset(element.offsetParent, ref_obj);
-  }
+  };
 
   return HtmlUtils;
 

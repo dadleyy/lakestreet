@@ -13,10 +13,11 @@ ld.directive('ldScrollListener', ['HtmlUtils', function(HtmlUtils) {
         var window_height = window.innerHeight,
             buffer = window_height * 0.5,
             offset = { x: 0, y: 0 },
+            client_rect = element[0].getBoundingClientRect(),
             in_view;
 
         HtmlUtils.getOffset(element[0], offset);
-        ele_bottom = element[0].offsetHeight + offset.y;
+        ele_bottom = client_rect.height + offset.y;
 
         if(angular.isFunction($scope.callback))
           $scope.callback(page_top, {top: offset.y, bottom: ele_bottom});

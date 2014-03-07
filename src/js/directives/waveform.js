@@ -1,4 +1,4 @@
-ld.directive('ldWaveform', [function() {
+ld.directive('ldWaveform', ['ViewportManager', function(ViewportManager) {
 
   return {
     restrict: 'EA',
@@ -10,9 +10,11 @@ ld.directive('ldWaveform', [function() {
       function update(sound) {
       }
 
-      console.log( $scope.active() );
-      
+      function resize() {
+      }
+
       trackController.addListener(update);
+      ViewportManager.addListener(resize);
     }
   };
 
