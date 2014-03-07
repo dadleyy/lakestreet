@@ -53,6 +53,9 @@ ld.directive('ldTrack', ['SoundManager', 'HtmlUtils', function(SoundManager, Htm
         albumController.setPlayState(true);
       }
 
+      $scope.watchMid = function() {
+      };
+
       $scope.stop = function() {
         $scope.is_playing = false;
         sound.stop();
@@ -61,8 +64,6 @@ ld.directive('ldTrack', ['SoundManager', 'HtmlUtils', function(SoundManager, Htm
       $scope.toggle = function() {
         return $scope[$scope.is_playing ? 'stop' : 'play']();
       }
-
-      $scope.$on('homeScroll', function() { });
 
     }
   }
