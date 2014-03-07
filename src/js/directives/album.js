@@ -1,30 +1,41 @@
 ld.directive('ldAlbum', [function() {
 
+  function Album() {
+    this.$scope = null;
+    this.element = null;
+    this.fade_damp = 0.009;
+  };
+
+  Album.prototype.setPlayState = function(state) {
+    $scope.playing = state;
+  };
+
+  Album.prototype.initialize = function($scope, element) {
+    this.$scope = $scope;
+    this.element = element;
+  };
+
+  Album.prototype.onScroll = function(page_top, bounding_box) {
+    var page_mid = page_top + window.innerHeight;
+    if(bounding_box.bottom < page_mid) {
+      this.element.addClass('passed-mid');
+    } else {
+      this.element.removeClass('passed-mid');
+    }
+  };
+
+  Album.$inject = ['$scope'];
+
   return {
     replace: true,
     restrict: 'EA',
     templateUrl: 'directives.album',
     scope: { album: '=' },
-    controller: ['$scope', function($scope) {
-
-      this.setPlayState = function(state) {
-        $scope.playing = state;
-      };
-
-    }],
-    link: function($scope, element, attr) { 
-      $scope.playing = false;  
-
-      $scope.albumFade = function(page_top, bounding_box) {
-        var window_mid = (window.innerHeight * 0.5) + page_top,
-            distance = window_mid - bounding_box.top,
-            opacity;
-
-        if(distance > 0) 
-          distance = 0;
-
-        opacity = 1 + (distance * 0.025);
-        element.css({opacity: opacity});
+    controller: Album,
+    link: function($scope, element, attr, albumController) { 
+      albumController.initialize($scope, element);
+      $scope.onScroll = function(page_top, bounding_box) {
+        return albumController.onScroll(page_top, bounding_box);
       };
     }
   };
