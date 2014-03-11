@@ -5,8 +5,7 @@
     </div>
     <div ld-waveform></div>
     <div class="actions">
-      <button class="ff-thirsty bold" ng-click="play()" ng-if="!is_playing">Play</button>
-      <button class="ff-thirsty bold" ng-click="stop()" ng-if="is_playing">Stop</button>
+      <button class="ff-thirsty bold" ng-click="toggle()"><i ng-if="!is_playing">Play</i><i ng-if="is_playing">Stop</i></button>
     </div>
   </div>
 </div>

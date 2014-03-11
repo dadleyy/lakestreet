@@ -5,6 +5,7 @@ ld.directive('ldTrack', ['SoundManager', 'HtmlUtils', function(SoundManager, Htm
     this.element = null;
     this.album = null;
     this.sound = null;
+    this.is_stopping = false;
   };
 
   Track.prototype.initialize = function($scope, element, album) {
@@ -23,14 +24,16 @@ ld.directive('ldTrack', ['SoundManager', 'HtmlUtils', function(SoundManager, Htm
   };
 
   Track.prototype.play = function() {
+    SoundManager.setActiveSound(this.sound);
     this.sound.play();
     this.album.setPlayState(true);
-    SoundManager.setActiveSound(this.sound);
   };
 
   Track.prototype.stop = function() {
+    this.is_stopping = true;
     this.sound.stop();
     this.album.setPlayState(false);
+    this.is_stopping = false;
   };
 
   Track.$inject = ['$scope'];
@@ -51,6 +54,7 @@ ld.directive('ldTrack', ['SoundManager', 'HtmlUtils', function(SoundManager, Htm
       $scope.dist = 0;
 
       $scope.play = function() {
+        console.log('playing!');
         $scope.is_playing = true;
         trackController.play();
       };
@@ -60,15 +64,18 @@ ld.directive('ldTrack', ['SoundManager', 'HtmlUtils', function(SoundManager, Htm
 
       $scope.stop = function() {
         $scope.is_playing = false;
+
+        if(trackController.is_stopping)
+          return false;
+
         trackController.stop();
       };
 
       $scope.finished = function() {
-        $scope.stop();
-        albumController.playNext();
       };
      
       $scope.toggle = function() {
+        console.log('playing: ' + $scope.is_playing);
         return $scope[$scope.is_playing ? 'stop' : 'play']();
       };
 
