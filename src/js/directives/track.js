@@ -14,7 +14,8 @@ ld.directive('ldTrack', ['SoundManager', 'HtmlUtils', function(SoundManager, Htm
 
     this.sound = SoundManager.createSound({
       url: $scope.track.streaming_url,
-      onstop: $scope.stop
+      onstop: $scope.stop,
+      onfinish: $scope.finished
     });
   };
 
@@ -54,17 +55,22 @@ ld.directive('ldTrack', ['SoundManager', 'HtmlUtils', function(SoundManager, Htm
         trackController.play();
       };
 
-      $scope.watchMid = function() {
+      $scope.onScroll = function(page_top, offset) {
       };
 
       $scope.stop = function() {
         $scope.is_playing = false;
         trackController.stop();
-      }
+      };
+
+      $scope.finished = function() {
+        $scope.stop();
+        albumController.playNext();
+      };
      
       $scope.toggle = function() {
         return $scope[$scope.is_playing ? 'stop' : 'play']();
-      }
+      };
 
       trackController.initialize($scope, element, albumController);
     }

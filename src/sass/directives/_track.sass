@@ -1,14 +1,78 @@
 .track
-  padding: 0
-  margin: 0
 
   > .inner
+    +clearfix
     display: block
-    padding: 10px 0
+    padding: 20px 0
+    position: relative
 
   .track-title
     text-align: center
-
-  .actions
     display: inline-block
     margin: 0px auto
+    .title
+      +shrink-title(40px, 5px)
+      +transition(margin 400ms ease)
+
+
+  .actions
+    +transition(opacity 400ms ease)
+    position: absolute
+    top: 0px
+    height: 100%
+    left: 50%
+    width: 50%
+    height: 100% 
+    margin: 0px 0 0 -20px
+    opacity: 0.0
+    background-color: $page-color
+    box-shadow: -2px 0px 2px -2px rgba(0,0,0,0.5)
+    button
+      +transition(all 400ms ease)
+      background: transparent
+      border: 2px solid $dark-grey-color
+      border-radius: 20px 20px
+      position: absolute
+      left: -10px
+      top: 50%
+      margin: -20px 0 0 0
+      width: 80px
+      height: 40px
+      font-family: $font-glober-black
+      box-sizing: border-box
+      overflow: hidden
+      &:after 
+        +transition(left 1500ms ease)
+        +transform(rotate(45deg))
+        content: ''
+        display: block
+        width: 10px
+        height: 180%
+        position: absolute
+        left: -20px
+        top: -18px
+        background: rgba(255,255,255,0.5) 
+
+      &:hover
+        background: lighten($page-color, 5%)
+        width: 100px
+        &:after
+          left: 120%
+
+  &:hover, &.playing
+    .track-title
+      .title
+        margin: 0 0 0 -100px
+
+    .actions
+      opacity: 1.0
+      button
+        left: 10px
+
+  &.playing
+    .actions
+      button
+        &:after
+          left: 120%
+
+

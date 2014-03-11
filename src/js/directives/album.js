@@ -4,6 +4,7 @@ ld.directive('ldAlbum', [function() {
     this.$scope = null;
     this.element = null;
     this.fade_damp = 0.009;
+    this.active_index = 0;
   };
 
   Album.prototype.setPlayState = function(state) {
@@ -13,6 +14,10 @@ ld.directive('ldAlbum', [function() {
   Album.prototype.initialize = function($scope, element) {
     this.$scope = $scope;
     this.element = element;
+  };
+
+  Album.prototype.playNext = function() {
+    console.log('playing next');
   };
 
   Album.prototype.onScroll = function(page_top, bounding_box) {
