@@ -25,7 +25,7 @@ ld.config(['$routeProvider', 'SoundManagerProvider', function($routeProvider, So
         };
 
         for(var i = 0; i < ALBUM_IDS.length; i++) {
-          var album = new CampApi.Albumn({album_id: ALBUM_IDS[i]}),
+          var album = new CampApi.Album({album_id: ALBUM_IDS[i]}),
               promise = album.$info();
 
           promise.then(checkStatus, failOut);
@@ -36,15 +36,7 @@ ld.config(['$routeProvider', 'SoundManagerProvider', function($routeProvider, So
       }],
       Events: ['$q', 'TownApi', function($q, TownApi) {
         var events = TownApi.Artist.events({artist_name: "lakestreetdive"});
-
-        function finished() {
-        };
-
-        function failed() {
-
-        };
-
-        events.$promise.then(finished, failed); 
+        return events.$promise;
       }],
       sm: SoundManagerProvider.route_resolution
     },

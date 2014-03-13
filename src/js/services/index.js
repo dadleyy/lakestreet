@@ -1,5 +1,6 @@
-import "campapi"
-import "townapi"
+import "camp_api"
+import "town_api"
+import "twitter_api"
 import "xhr_monitor"
 import "viewport"
 import "loop"

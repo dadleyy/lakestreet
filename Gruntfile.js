@@ -1,4 +1,8 @@
+var dotenv = require('dotenv');
+
 module.exports = function(grunt) {
+
+  dotenv.load();
 
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -7,6 +11,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadTasks('tasks');
 
   grunt.initConfig({
 
@@ -87,7 +92,13 @@ module.exports = function(grunt) {
         dest: 'public/svg/',
         flatten: true
       }
+    },
 
+    twitterauth: {
+      lakestreet: {
+        key: process.env['TWITTER_KEY'],
+        secret: process.env['TWITTER_SECRET']
+      }
     }
 
   });
