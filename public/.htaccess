@@ -4,7 +4,8 @@
   RewriteEngine On
   RewriteBase /
 
-  RewriteRule ^api/(.*)$ http://api.bandcamp.com/api/$1 [P,L]
+  RewriteRule ^api/camp/(.*)$ http://api.bandcamp.com/api/$1 [P,L]
+  RewriteRule ^api/town/(.*)$ http://api.bandsintown.com/$1 [P,L]
 
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

@@ -1,4 +1,5 @@
-import "api"
+import "campapi"
+import "townapi"
 import "xhr_monitor"
 import "viewport"
 import "loop"

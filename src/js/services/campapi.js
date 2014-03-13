@@ -1,14 +1,14 @@
 ld.service('CampApi', ['$resource', 'AK', function($resource, AK) {
 
   var CampApi = {},
-      api_home = "/api/",
+      api_home = "/api/camp",
       ext = angular.extend,
       defp = { key: AK },
       band_params, band_url,
       album_params, album_url;
 
   band_params = ext({}, defp, { band_id: '@band_id' });
-  band_url = [api_home, 'band/3/:fn'].join('');
+  band_url = [api_home, 'band/3/:fn'].join('/');
   CampApi.Band = $resource(band_url, band_params, {
     info: {
       method: 'GET',

@@ -1,5 +1,6 @@
 (function() {
 
+import "../../bower_components/jquery/dist/jquery"
 import "../../bower_components/soundmanager2/script/soundmanager2"
 import "../../bower_components/angular/angular"
 import "../../bower_components/angular-route/angular-route"
