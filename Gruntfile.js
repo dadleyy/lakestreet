@@ -97,13 +97,15 @@ module.exports = function(grunt) {
     twitterauth: {
       lakestreet: {
         key: process.env['TWITTER_KEY'],
-        secret: process.env['TWITTER_SECRET']
+        secret: process.env['TWITTER_SECRET'],
+        save_to: 'obj/twitter.js',
+        module: 'lakestreet'
       }
     }
 
   });
 
-  grunt.registerTask('default', ['clean:scripts','clean:stylesheets','smash','sass','ngtemplates','uglify','svg']);
+  grunt.registerTask('default', ['clean:scripts','clean:stylesheets', 'twitterauth', 'smash','sass','ngtemplates','uglify','svg']);
   grunt.registerTask('soundmanager', ['clean:soundmanager','copy:soundmanager']);
   grunt.registerTask('svg', ['clean:svg', 'copy:svg']);
 

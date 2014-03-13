@@ -15,6 +15,7 @@ import "filters/"
 import "services/"
 import "directives/"
 import "controllers/"
+import "../../obj/twitter"
 
 window.onload = (function() {
   angular.element(document).find('body').removeClass('preload');

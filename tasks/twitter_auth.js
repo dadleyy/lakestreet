@@ -5,6 +5,8 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('twitterauth', 'gets a brearer token for a twitter application', function() {
     var defer = this.async(),
+        save_file = this.data['save_to'],
+        module = this.data['module'],
         secret = this.data['secret'],
         key = this.data['key'],
         url_secret = encodeURIComponent(secret),
@@ -24,9 +26,14 @@ module.exports = function(grunt) {
       "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
     };
 
+    function decorate(key) {
+      return ["angular.module(\"", module, "\").value(\"TWITTER_API_KEY\",\"", key, "\");"].join('');
+    }
+
     function receive(data) {
       var packet = JSON.parse(['',data].join(''));
-      console.log(packet.access_token);
+      if(save_file)
+        grunt.file.write(save_file, decorate(packet.access_token));
       defer();
     }
 

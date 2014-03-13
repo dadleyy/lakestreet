@@ -1,7 +1,7 @@
-ld.controller('HomeController', ['$scope', 'Albums', 'Events', function($scope, Albums, Events) {
+ld.controller('HomeController', ['$scope', 'Albums', 'Events', 'Timeline', function($scope, Albums, Events, Timeline) {
 
   $scope.albums = Albums;
-
-  console.log(Events);
+  $scope.tweets = Timeline;
+  $scope.tour_events = Events;
 
 }]);
