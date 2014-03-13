@@ -92,7 +92,8 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.registerTask('default', ['clean:scripts','clean:stylesheets', 'smash','sass','ngtemplates','uglify']);
+  grunt.registerTask('default', ['clean:scripts','clean:stylesheets','smash','sass','ngtemplates','uglify','svg']);
   grunt.registerTask('soundmanager', ['clean:soundmanager','copy:soundmanager']);
+  grunt.registerTask('svg', ['clean:svg', 'copy:svg']);
 
 };

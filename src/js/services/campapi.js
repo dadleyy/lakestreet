@@ -21,7 +21,7 @@ ld.service('CampApi', ['$resource', 'AK', function($resource, AK) {
   });
 
   album_params = ext({}, defp, {album_id: '@album_id'});
-  album_url = [api_home, 'album/2/:fn'].join('');
+  album_url = [api_home, 'album/2/:fn'].join('/');
   CampApi.Albumn = $resource(album_url, album_params, {
     info: {
       method: 'GET',

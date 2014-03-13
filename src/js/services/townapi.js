@@ -1,10 +1,13 @@
 ld.service('TownApi', ['$resource', function($resource) {
 
   var TownApi = {},
-      api_home = "/api/town";
+      api_home = "/api/town",
+      artist_params,
+      artist_url;
 
-  var artist_params = {artist_name: '@artist_name'};
-  TownApi.Artist = $resource([api_home, 'artists/:artist_name/:fn'].join('/'), artist_params, {
+  artist_params = {artist_name: '@artist_name'};
+  artist_url = [api_home, 'artists/:artist_name/:fn'].join('/');
+  TownApi.Artist = $resource(artist_url, artist_params, {
     events: {
       method: 'GET',
       params: {
