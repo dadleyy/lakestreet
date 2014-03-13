@@ -15,7 +15,8 @@ module.exports = function(grunt) {
     clean: {
       scripts: ["public/js"],
       stylesheets: ["public/css"],
-      soundmanager: ['public/swf']
+      soundmanager: ['public/swf'],
+      svg: ['public/svg']
     },
 
     smash: {
@@ -67,6 +68,10 @@ module.exports = function(grunt) {
         files: ['src/sass/**/*.sass'],
         tasks: ['clean:stylesheets','sass']
       },
+      svg: {
+        files: ['src/svg/**/*.svg'],
+        tasks: ['clean:svg', 'copy:svg']
+      }
     },
 
     copy: {
@@ -75,7 +80,14 @@ module.exports = function(grunt) {
         src: ['bower_components/soundmanager2/swf/*'],
         dest: 'public/swf/',
         flatten: true
+      },
+      svg: {
+        expand: true,
+        src: ['src/svg/*'],
+        dest: 'public/svg/',
+        flatten: true
       }
+
     }
 
   });

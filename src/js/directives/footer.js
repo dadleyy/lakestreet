@@ -4,7 +4,7 @@ ld.directive('ldFooter', [function() {
     restrict: 'AE',
     replace: true,
     templateUrl: 'directives.footer',
-    link: function($scope, element, attrs) {
+    link: function($scope, $element, $attrs) {
     }
   };
 

@@ -2,7 +2,7 @@ ld.directive('ldAlbum', [function() {
 
   function Album() {
     this.$scope = null;
-    this.element = null;
+    this.$element = null;
     this.fade_damp = 0.009;
     this.active_index = 0;
   };
@@ -11,9 +11,9 @@ ld.directive('ldAlbum', [function() {
     this.$scope.playing = state;
   };
 
-  Album.prototype.initialize = function($scope, element) {
+  Album.prototype.initialize = function($scope, $element) {
     this.$scope = $scope;
-    this.element = element;
+    this.$element = $element;
   };
 
   Album.prototype.playNext = function() {
@@ -25,9 +25,9 @@ ld.directive('ldAlbum', [function() {
         bottom_buffer = 120;
 
     if(bounding_box.bottom + bottom_buffer < page_mid) {
-      this.element.addClass('passed-mid');
+      this.$element.addClass('passed-mid');
     } else {
-      this.element.removeClass('passed-mid');
+      this.$element.removeClass('passed-mid');
     }
   };
 
@@ -39,8 +39,8 @@ ld.directive('ldAlbum', [function() {
     templateUrl: 'directives.album',
     scope: { album: '=' },
     controller: Album,
-    link: function($scope, element, attr, albumController) { 
-      albumController.initialize($scope, element);
+    link: function($scope, $element, attr, albumController) { 
+      albumController.initialize($scope, $element);
       $scope.onScroll = function(page_top, bounding_box) {
         return albumController.onScroll(page_top, bounding_box);
       };

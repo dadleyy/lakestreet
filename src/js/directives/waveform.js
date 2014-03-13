@@ -1,4 +1,4 @@
-ld.directive('ldWaveform', ['ViewportManager', function(ViewportManager) {
+ld.directive('ldWaveform', ['Viewport', function(Viewport) {
 
   return {
     restrict: 'EA',
@@ -6,15 +6,15 @@ ld.directive('ldWaveform', ['ViewportManager', function(ViewportManager) {
     templateUrl: 'directives.waveform',
     require: '^ldTrack',
     scope: { active: '&' },
-    link: function($scope, element, attrs, trackController) {
+    link: function($scope, $element, $attrs, trackController) {
       function update(sound) {
-      }
+      };
 
       function resize() {
-      }
+      };
 
       trackController.addListener(update);
-      ViewportManager.addListener(resize);
+      Viewport.addListener('resize', resize);
     }
   };
 

@@ -1,4 +1,4 @@
-ld.directive('ldTrack', ['SoundManager', 'HtmlUtils', function(SoundManager, HtmlUtils) {
+ld.directive('ldTrack', ['SoundManager', function(SoundManager) {
 
   function Track() {
     this.$scope = null;
@@ -45,10 +45,10 @@ ld.directive('ldTrack', ['SoundManager', 'HtmlUtils', function(SoundManager, Htm
     require: ['^ldAlbum', 'ldTrack'],
     scope: { track: '=' },
     controller: Track,
-    link: function($scope, element, attrs, controllers) {
+    link: function($scope, $element, $attrs, $controllers) {
       var sound = null,
-          trackController = controllers[1],
-          albumController = controllers[0];
+          trackController = $controllers[1],
+          albumController = $controllers[0];
 
       $scope.is_playing = false;
       $scope.dist = 0;
@@ -79,7 +79,7 @@ ld.directive('ldTrack', ['SoundManager', 'HtmlUtils', function(SoundManager, Htm
         return $scope[$scope.is_playing ? 'stop' : 'play']();
       };
 
-      trackController.initialize($scope, element, albumController);
+      trackController.initialize($scope, $element, albumController);
     }
   }
 
