@@ -1,4 +1,4 @@
-<div class="twitter-feed">
+<div class="twitter-feed" ng-click="expand()" ng-class="{expanded: expanded}">
   <div class="scroll">
     <div class="inner-feed">
       <div class="top">
@@ -11,7 +11,12 @@
               <i class="circle"></i>
             </div>
             <div class="large">
-              <p><%= twit.source %></p>
+              <div class="date">
+                <p class="ff-glober"><%= twit.created_at | twitterDate %></p>
+              </div>
+            </div>
+            <div class="text">
+              <p class="ff-glober" ng-bind-html="twit | twitterText"></p>
             </div>
           </li>
         </ul>

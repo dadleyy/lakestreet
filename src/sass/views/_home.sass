@@ -11,13 +11,19 @@
     bottom: 10px
     width: 40px
     border-left: 1px solid #fff
+    z-index: 10
     .inner-feed
       width: 40px
 
     &:hover
-      width: 80px
+      width: 40px
       .inner-feed
-        width: 80px
+        width: 40px
+
+    &.expanded
+      width: 180px
+      .inner-feed
+        width: 180px
 
   .intro
     height: 100%

@@ -6,6 +6,10 @@ ld.directive('ldTwitterFeed', [function() {
     templateUrl: 'directives.twitter_feed',
     scope: { tweets: '=' },
     link: function($scope, $element, $attrs) {
+      $scope.expanded = false;
+      $scope.expand = function() { 
+        $scope.expanded = !$scope.expanded;
+      };
     }
   };
 
