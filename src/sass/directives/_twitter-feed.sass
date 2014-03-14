@@ -12,6 +12,8 @@
     direction: ltr
     padding-right: 100px
     margin-right: -100px
+    overflow-x: hidden
+    box-sizing: content-box
 
   .inner-feed
     +transition(width 800ms ease)
@@ -20,12 +22,24 @@
 
     .top
       +clearfix
+      .left
+        float: left
+        width: 40px
+        height: 40px
+
+      .right
+        margin-left: 40px
+        overflow: hidden
+        height: 40px
+        line-height: 40px
+        color: $dark-grey-color
+        font-size: 20px
+        text-transform: uppercase
 
     button
       background: transparent
       padding: 0px
       box-shadow: none
-      float: left
       width: 40px
       height: 40px
 
@@ -45,47 +59,12 @@
     list-style: none
     margin: 0
     padding: 0
-    li
+    li.tweet
       +outer-container
       margin: 5px 0
       list-style: none
       padding: 5px 0
       position: relative
-
-      .small
-        width: 40px
-        position: relative
-        float: left
-        padding: 3px 0
-
-      .large
-        +transition(width 800ms ease)
-        margin-left: 40px
-        height: 100%
-        overflow: hidden
-        .date
-          width: 140px
-          color: $dark-grey-color
-          font-size: 12px
-
-      .text
-        +transition(all 500ms ease)
-        max-height: 0px
-        overflow: hidden
-        clear: both
-        margin: 0 5px
-        width: 140px
-        font-size: 12px
-        color: $dark-grey-color
-    
-    i.circle
-      +linear-gradient(top, #fff, #fafafa)
-      display: block
-      margin: 0 auto
-      width: 10px
-      height: 10px
-      box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,0.25)
-      border-radius: 5px
 
   &.expanded
     width: 400px
@@ -94,7 +73,7 @@
       width: 400px
 
       ul.feed
-        li
+        li.tweet
           +outer-container
 
           .small
@@ -103,8 +82,3 @@
           &:hover
             background: rgba(255,255,255,0.25)
             box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.25)
-
-            .text
-              max-height: 1000px
-            
-
