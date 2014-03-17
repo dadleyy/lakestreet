@@ -5,7 +5,7 @@ ld.controller('HomeController', ['$scope', 'Albums', 'Events', 'Timeline', funct
   $scope.tour_events = Events;
 
   $scope.navigate = function(dest) {
-    $scope.$broadcast('navigate', dest);
+    $scope.$emit('navigate', dest);
   };
 
 }]);

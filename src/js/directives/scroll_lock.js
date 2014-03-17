@@ -22,8 +22,7 @@ ld.directive('ldScrollLock', [function() {
       };
 
       function checkTop(page_top, offset) {
-        var element_top = offset.top + page_top;
-        if(element_top < page_top) {
+        if(offset.top < page_top) {
           if(!locked)
             lock();
         } else {
