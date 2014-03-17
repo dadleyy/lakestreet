@@ -5,29 +5,50 @@ ld.directive('ldScrollLock', [function() {
     replace: true,
     transclude: true,
     templateUrl: 'directives.scroll_lock',
-    link:function($scope, element, attrs) {
-      var edge = (attrs['lockTo'] || 'top').toLowerCase();
+    scope: { 'broadcastName': '@' },
+    link:function($scope, $element, $attrs) {
+      var edge = ($attrs['lockTo'] || 'top').toLowerCase(),
+          b_name = $scope.broadcastName,
+          locked = false;
 
-      function checkTop(page_top, bounding_box) {
-        if(bounding_box.top < page_top) {
-          element.addClass('locked').addClass('top');
+      function lock() {
+        locked = true;
+        $element.addClass('locked').addClass(edge);
+      };
+
+      function unlock() {
+        locked = false;
+        $element.removeClass('locked').removeClass(edge);
+      };
+
+      function checkTop(page_top, offset) {
+        var element_top = offset.top + page_top;
+        if(element_top < page_top) {
+          if(!locked)
+            lock();
         } else {
-          element.removeClass('locked').removeClass('top');
+          if(locked)
+            unlock();
         }
       };
 
-      function checkBottom(page_top, bounding_box) {
-        var page_bottom = page_top + window.innerHeight;
-        if(bounding_box.bottom < page_bottom) {
-          element.addClass('locked').addClass('bottom');
+      function checkBottom(page_top, offset) {
+        var page_bottom = page_top + window.innerHeight,
+            element_bottom = offset.top + $element.height();
+
+        if(element_bottom < page_bottom) {
+          if(!locked)
+            lock();
         } else {
-          element.removeClass('locked').removeClass('bottom');
+          if(locked)
+            unlock();
         }
       };
 
       $scope.watchLock = function(page_top, bounding_box) {
-        return (edge === 'top' ? checkTop : checkBottom)(page_top, bounding_box);
-      }
+        var offset = $element.offset();
+        return (edge === 'top' ? checkTop : checkBottom)(page_top, offset);
+      };
     }
   };
 

@@ -1,26 +1,29 @@
 <div class="home content">
-  <div ld-twitter-feed tweets="tweets"></div>
-  <div class="scrollable" ld-scroll-nav>
-    <div class="intro" lg-section name="intro">
-      <div class="inner" >
+  <div class="scrollable" data-ld-scroll-nav data-ld-scroll-broadcaster data-broadcast-name="homescroll">
+
+    <div class="intro" data-ld-section name="intro">
+      <div class="inner" data-ld-scroll-lock data-broadcast-name="homescroll" >
         <div class="title">
           <h1 class="title-text ff-thirsty black">lake street dive</h1>
         </div>
         <nav class="main">
           <div class="center">
-            <div ld-wicked-button click="navigate('discography')" text="discography"><i class="icon-music"></i></div>
-            <div ld-wicked-button click="navigate('calendar')" text="calendar"><i class="icon-calendar"></i></div>
-            <div ld-wicked-button text="bio"><i class="icon-team"></i></div>
+            <div data-ld-wicked-button data-click="navigate('discography')" data-text="discography"><i class="icon-music"></i></div>
+            <div data-ld-wicked-button data-click="navigate('calendar')" data-text="calendar"><i class="icon-calendar"></i></div>
+            <div data-ld-wicked-button data-text="bio"><i class="icon-team"></i></div>
           </div>
         </nav>
       </div>
     </div>
+
     <div class="home-section discography" ld-scroll-section name="discography">
       <h1 class="ff-glober black">discography</h1>
       <div ng-repeat="album in albums" ld-album album="album"></div>
     </div>
+
     <div class="home-section calendar" ld-scroll-section name="calendar">
       <h1 class="ff-glober black">calendar</h1>
     </div>
+
   </div>
 </div>
