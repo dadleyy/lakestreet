@@ -20,21 +20,21 @@ ld.service('MenuManager', ['$rootScope', function($rootScope) {
     if(stack.length < 1)
       return;
     
-    stack[stack.length - 1]();
+    stack.pop()();
 
     try {
       $rootScope.$digest();
     } catch(e) { }
   };
 
-  MenuManager.push = function(close_fn) {
+  MenuManager.add = function(close_fn) {
     if(!angular.isFunction(close_fn))
       return null;
 
     return add(close_fn);
   };
 
-  MenuManager.pop = function(id) {
+  MenuManager.remove = function(id) {
     var indx = null;
     for(var i = 0; i < stack.length; i++) {
       if(stack[i].menu_id === id)

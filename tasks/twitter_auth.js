@@ -27,7 +27,7 @@ module.exports = function(grunt) {
     };
 
     function decorate(key) {
-      return ["angular.module(\"", module, "\").value(\"TWITTER_API_KEY\",\"", key, "\");"].join('');
+      return ["angular.module(\"", module, "\").value(\"TAK\",\"", key, "\");"].join('');
     }
 
     function receive(data) {

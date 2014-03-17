@@ -97,7 +97,7 @@ ld.directive('ldWickedButton', ['Loop', function(Loop) {
     replace: true,
     templateUrl: 'directives.wicked_button',
     transclude: true,
-    scope: { text: "@" },
+    scope: { text: "@", click: '&' },
     link: function($scope, $element, $attrs) {
       var canvas = document.createElement('canvas'),
           context = canvas.getContext('2d'),

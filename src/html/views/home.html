@@ -1,20 +1,26 @@
 <div class="home content">
-  <div class="intro">
-    <div class="inner" >
-      <div class="title">
-        <h1 class="title-text ff-thirsty black">lake street dive</h1>
-      </div>
-      <nav class="main">
-        <div class="center">
-          <div ld-wicked-button text="discography"><i class="icon-music"></i></div>
-          <div ld-wicked-button text="calendar"><i class="icon-calendar"></i></div>
-          <div ld-wicked-button text="bio"><i class="icon-team"></i></div>
+  <div ld-twitter-feed tweets="tweets"></div>
+  <div class="scrollable" ld-scroll-nav>
+    <div class="intro" lg-section name="intro">
+      <div class="inner" >
+        <div class="title">
+          <h1 class="title-text ff-thirsty black">lake street dive</h1>
         </div>
-      </nav>
+        <nav class="main">
+          <div class="center">
+            <div ld-wicked-button click="navigate('discography')" text="discography"><i class="icon-music"></i></div>
+            <div ld-wicked-button click="navigate('calendar')" text="calendar"><i class="icon-calendar"></i></div>
+            <div ld-wicked-button text="bio"><i class="icon-team"></i></div>
+          </div>
+        </nav>
+      </div>
     </div>
-    <div ld-twitter-feed tweets="tweets"></div>
-  </div>
-  <div class="discography">
-    <div ng-repeat="album in albums" ld-album album="album"></div>
+    <div class="discography" ld-scroll-section name="discography">
+      <h1 class="ff-glober black">discography</h1>
+      <div ng-repeat="album in albums" ld-album album="album"></div>
+    </div>
+    <div class="calendar" ld-scroll-section name="calendar">
+      <h1 class="ff-glober dark">calendar</h1>
+    </div>
   </div>
 </div>

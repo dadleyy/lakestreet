@@ -1,8 +1,8 @@
-ld.service('TwitterApi', ['$resource', 'TWITTER_API_KEY', function($resource, TWITTER_API_KEY) {
+ld.service('TwitterApi', ['$resource', 'TAK', function($resource, TAK) {
 
   var TwitterApi = {},
       api_home = "/api/twit/1.1",
-      auth_header = { "Authorization": ["Bearer", TWITTER_API_KEY].join(' ') },
+      auth_header = { "Authorization": ["Bearer", TAK].join(' ') },
       timeline_url,
       timeline_params,
       

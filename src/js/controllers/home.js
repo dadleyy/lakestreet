@@ -4,4 +4,8 @@ ld.controller('HomeController', ['$scope', 'Albums', 'Events', 'Timeline', funct
   $scope.tweets = Timeline;
   $scope.tour_events = Events;
 
+  $scope.navigate = function(dest) {
+    $scope.$broadcast('navigate', dest);
+  };
+
 }]);

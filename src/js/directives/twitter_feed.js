@@ -12,9 +12,9 @@ ld.directive('ldTwitterFeed', ['MenuManager', function(MenuManager) {
     this.$scope.expanded = !this.$scope.expanded;
 
     if(this.$scope.expanded)
-      this.menu_id = MenuManager.push(angular.bind(this,this.close));
+      this.menu_id = MenuManager.add(this.$scope.close);
     else
-      MenuManager.pop(this.menu_id);
+      MenuManager.remove(this.menu_id);
 
     return this.$scope.expanded;
   };
@@ -40,6 +40,10 @@ ld.directive('ldTwitterFeed', ['MenuManager', function(MenuManager) {
 
       $scope.expand = function(evt) { 
         return twitterFeed.toggle(evt);
+      };
+
+      $scope.close = function() {
+        twitterFeed.close();
       };
     }
   };

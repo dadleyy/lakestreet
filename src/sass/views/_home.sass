@@ -1,7 +1,17 @@
 .content.home
   height: 100%
-  position: relative
+  width: 100%
+  position: absolute
   background: white
+  overflow: hidden 
+
+  > .scrollable
+    width: 100%
+    box-sizing: content-box
+    padding-right: 100px
+    margin-right: -100px
+    height: 100%
+    overflow-y: scroll
 
   .twitter-feed
     +linear-gradient(left, #f0f0f0, #f5f5f5, #f0f0f0)
@@ -60,5 +70,3 @@
           .title-text
 
   .discography
-    height: 0px
-    overflow: hidden
