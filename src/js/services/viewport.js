@@ -3,7 +3,8 @@ ld.service('Viewport', ['$window', function($window) {
   var Viewport = {},
       listeners = {
         'resize': []
-      };
+      },
+      resizer;
 
   function runner(evt_name) {
     return (function() {
@@ -14,11 +15,15 @@ ld.service('Viewport', ['$window', function($window) {
   };
   
   Viewport.addListener = function(evt, fn) {
-    if(angular.isFunction(fn) && listeners[evt])
+    if(angular.isFunction(fn) && listeners[evt]) {
       listeners[evt].push(fn);
+      resizer();
+    }
+
   };
 
-  angular.element($window).bind('resize', runner('resize'));
+  resizer = runner('resize');
+  angular.element($window).bind('resize', resizer);
 
   return Viewport;
 
