@@ -37,7 +37,7 @@ ld.directive('ldAlbum', ['Viewport', 'CanvasUtils', function(Viewport, CanvasUti
       pixel_data = image_data.data;
 
       for(var i = 0; i < pixel_data.length; i += 4) {
-        var brightness = 0.34 * pixel_data[i] + 0.5 * pixel_data[i + 1] + 0.16 * pixel_data[i + 2];
+        var brightness = 255; //(0.80 * pixel_data[i]) + (0.80 * pixel_data[i + 1]) + (0.80 * pixel_data[i + 2]);
         pixel_data[i] = brightness;
         pixel_data[i + 1] = brightness;
         pixel_data[i + 2] = brightness;

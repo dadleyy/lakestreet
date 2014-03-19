@@ -4,13 +4,30 @@ nav.main
   .center
     +clearfix
     display: inline-block
+    position: relative
+    .ribbon
+      display: none
   
   .wicked-button
+    +transition(all 400ms ease)
     background: transparent
     box-shadow: none
     padding: 0
     float: left
     margin: 0 5px
+    button
+      overflow: hidden
+      position: relative
+
+    .icon
+      +transition(all 500ms ease)
+      position: absolute
+      left: 50%
+      margin: -15px 0 0 -15px
+      top: 50%
+      &.white
+        opacity: 0.0
+        top: -100%
 
 .scroll-lock.locked
   nav.main
@@ -20,34 +37,6 @@ nav.main
     width: 100%
     left: 0px
     z-index: 400
-
     .center
-      +transition(all 500ms ease)
-      background: white
       position: relative
-      padding: 5px 0
-      border-radius: 3px
-
-      &:after, &:before
-        +transform(rotate(45deg))
-        content: ''
-        display: block
-        width: 30px
-        height: 30px
-        background: white 
-        position: absolute
-        top: 4px
-        border-radius: 0px 10px
-
-      &:after
-        right: -13px
-
-      &:before
-        left: -13px
-
-    &:hover
-      .center
-        padding: 5px 10px
-
-
-
+      padding: 0 10px 5px 10px
