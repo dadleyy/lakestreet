@@ -1,31 +1,14 @@
 .track
   min-height: 200px
   position: relative
+  background: $dark-grey-color
+  border-radius: 3px
 
-  .inner
-    width: 200px
-    height: 200px
-    margin: -100px 0 0 -100px
-    position: absolute
-    left: 50%
-    top: 50%
-    border-radius: 100px
-    background: $dark-grey-color
+  > .inner
+    padding: 10px
+
+  .track-title
     text-align: center
+    display: inline-block
 
-    .track-title
-      text-align: center
-      display: inline-block
-      background: $dark-grey-color
-
-    .actions
-      position: absolute
-      top: 50%
-      left: 50%
-      margin: -25px 0 0 -25px
-      button
-        width: 50px
-        height: 50px
-        border-radius: 50px
-
-
+  .actions
