@@ -11,6 +11,14 @@
 
 
   > .inner
+    +outer-container
     position: relative
     z-index: 10
 
+
+  .track-list
+    +outer-container
+    .track
+      +span-columns(6)
+      +omega(2n)
+      margin-bottom: 20px
