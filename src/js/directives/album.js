@@ -30,7 +30,6 @@ ld.directive('ldAlbum', ['Viewport', 'CanvasUtils', function(Viewport, CanvasUti
       canvas.width = w;
       canvas.height = h;
 
-      console.log(cors_url);
       context.drawImage(image, 0, 0, w, h);
 
       image_data = context.getImageData(0, 0, w, h);
@@ -46,7 +45,7 @@ ld.directive('ldAlbum', ['Viewport', 'CanvasUtils', function(Viewport, CanvasUti
     image.src = cors_url;
 
     container.append(canvas);
-    //Viewport.addListener('resize', draw);
+    Viewport.addListener('resize', draw);
   };
 
   Album.prototype.playNext = function() {
