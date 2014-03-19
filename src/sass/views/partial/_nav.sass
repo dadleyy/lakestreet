@@ -1,0 +1,53 @@
+nav.main
+  text-align: center
+  padding: 10px 0 0 0
+  .center
+    +clearfix
+    display: inline-block
+  
+  .wicked-button
+    background: transparent
+    box-shadow: none
+    padding: 0
+    float: left
+    margin: 0 5px
+
+.scroll-lock.locked
+  nav.main
+    padding: 0 0
+    position: fixed
+    top: 10px
+    width: 100%
+    left: 0px
+    z-index: 400
+
+    .center
+      +transition(all 500ms ease)
+      background: white
+      position: relative
+      padding: 5px 0
+      border-radius: 3px
+
+      &:after, &:before
+        +transform(rotate(45deg))
+        content: ''
+        display: block
+        width: 30px
+        height: 30px
+        background: white 
+        position: absolute
+        top: 4px
+        border-radius: 0px 10px
+
+      &:after
+        right: -13px
+
+      &:before
+        left: -13px
+
+    &:hover
+      .center
+        padding: 5px 10px
+
+
+
