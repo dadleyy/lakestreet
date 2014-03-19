@@ -5,7 +5,10 @@
     </div>
     <div ld-waveform></div>
     <div class="actions">
-      <button class="ff-thirsty bold" ng-click="toggle()"><i ng-if="!is_playing">Play</i><i ng-if="is_playing">Stop</i></button>
+      <div ld-wicked-button click="toggle()">
+        <i ng-if="!is_playing" class="icon-play"></i>
+        <i ng-if="is_playing" class="icon-stop">Stop</i>
+      </div>
     </div>
   </div>
 </div>
