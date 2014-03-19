@@ -36,13 +36,6 @@ ld.directive('ldAlbum', ['Viewport', 'CanvasUtils', function(Viewport, CanvasUti
       image_data = context.getImageData(0, 0, w, h);
       pixel_data = image_data.data;
 
-      for(var i = 0; i < pixel_data.length; i += 4) {
-        var brightness = 255; //(0.80 * pixel_data[i]) + (0.80 * pixel_data[i + 1]) + (0.80 * pixel_data[i + 2]);
-        pixel_data[i] = brightness;
-        pixel_data[i + 1] = brightness;
-        pixel_data[i + 2] = brightness;
-      }
-
       CanvasUtils.blur(100, pixel_data, w, h);
       
       context.putImageData(image_data, 0, 0);
