@@ -54,7 +54,6 @@ ld.directive('ldTrack', ['SoundManager', function(SoundManager) {
       $scope.dist = 0;
 
       $scope.play = function() {
-        console.log('playing!');
         $scope.is_playing = true;
         trackController.play();
       };
@@ -75,7 +74,6 @@ ld.directive('ldTrack', ['SoundManager', function(SoundManager) {
       };
      
       $scope.toggle = function() {
-        console.log('playing: ' + $scope.is_playing);
         return $scope[$scope.is_playing ? 'stop' : 'play']();
       };
 
