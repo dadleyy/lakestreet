@@ -1,0 +1,61 @@
+@import "../base"
+
+.load-splash
+  +clearfix
+  +transition(all 1800ms ease 300ms)
+  position: fixed
+  top: 0px
+  left: 0px
+  width: 100%
+  background-color: $midnight-blue
+  height: 100%
+  z-index: 100
+
+  .spinner
+    +transition(opacity 400ms ease)
+    $dimension: 140px 
+    display: block
+    width: $dimension
+    height: $dimension 
+    position: fixed
+    left: 50%
+    top: 50%
+    border-radius: 5px
+    margin-left: -($dimension/2)
+    margin-top: -($dimension/2)
+    text-align: center
+    line-height: $dimension 
+
+    h1
+      z-index: 400
+      position: relative
+      color: $midnight-blue
+      font-size: 115px
+      margin: 0px 0px 0px -14px
+      letter-spacing: -13px
+
+    &:after
+      content: ''
+      +transform(rotate(12deg))
+      $dimension: 140px 
+      z-index: 399
+      display: block
+      width: $dimension
+      height: $dimension 
+      position: fixed
+      left: 50%
+      top: 50%
+      border-radius: 5px
+      background: #eeaa88
+      margin-left: -($dimension/2)
+      margin-top: -($dimension/2)
+      text-align: center
+      line-height: $dimension 
+
+  &.finished
+    background-color: rgba(0,0,0,0.0)
+    .spinner 
+      opacity: 0.0
+
+  &.hidden
+    display: none

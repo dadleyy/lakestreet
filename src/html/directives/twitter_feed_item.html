@@ -1,0 +1,15 @@
+<div class="twitter-feed-item" ng-mouseenter="over()" ng-mouseleave="out()">
+  <div class="small">
+    <a class="circle" href="http://twitter.com/lakestreetdive/statuses/<%= tweet.id_str %>"></a>
+  </div>
+  <div class="large">
+    <div class="date">
+      <p class="ff-glober"><%= tweet.created_at | twitterDate %></p>
+    </div>
+  </div>
+  <div class="text">
+    <div class="inner">
+      <p class="ff-glober" ng-bind-html="tweet | twitterText"></p>
+    </div>
+  </div>
+</div>

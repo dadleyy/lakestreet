@@ -1,0 +1,21 @@
+<div class="twitter-feed" ng-click="expand($event)" ng-class="{expanded: expanded}">
+  <div class="scroll">
+    <div class="inner-feed">
+      <div class="top">
+        <div class="left">
+          <button><i class="icon-twitter"></i></button>
+        </div>
+        <div class="right">
+          <a class="ff-glober black" href="http://twitter.com/lakestreetdive" target="_blank">lakestreetdive</a>
+        </div>
+      </div>
+      <div class="bottom">
+        <ul class="feed">
+          <li ng-repeat="twit in tweets" class="tweet">
+            <div ld-twitter-feed-item tweet="twit"></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

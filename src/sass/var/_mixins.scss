@@ -1,0 +1,47 @@
+@mixin calc($property, $expression) { 
+  #{$property}: -webkit-calc(#{$expression}); 
+  #{$property}: calc(#{$expression}); 
+}
+
+@mixin diagonal-stripe($degree:45deg, $line-color:$dark-grey-color) {
+  @include linear-gradient(
+    $degree, 
+    transparent 0%, 
+    transparent 40% 
+    $line-color 41%, 
+    $line-color 60%, 
+    transparent 61%, 
+    transparent 100%
+  );
+  background-size: 5px 5px;
+}
+
+@mixin shrink-title($start-size:120px, $decrease:10px) {
+  font-size: $start-size;
+  @include media(min-width 1000px max-width 1100px) {
+    font-size: $start-size - (1 * $decrease);
+  }
+  @include media(min-width 900px max-width 1000px) {
+    font-size: $start-size - (2 * $decrease);
+  }
+  @include media(min-width 800px max-width 900px) {
+    font-size: $start-size - (3 * $decrease);
+  }
+  @include media(min-width 700px max-width 800px) {
+    font-size: $start-size - (4 * $decrease);
+  }
+  @include media(min-width 600px max-width 700px) {
+    font-size: $start-size - (5 * $decrease);
+  }
+  @include media(min-width 500px max-width 600px) {
+    font-size: $start-size - (6 * $decrease);
+  }
+  @include media(max-width 500px) {
+    font-size: $start-size - (7 * $decrease);
+  }
+}
+
+@mixin no-flick {
+  -webkit-transform-style: preserve-3d;
+}
+

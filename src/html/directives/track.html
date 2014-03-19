@@ -1,0 +1,11 @@
+<div class="track" ng-class="{playing: is_playing}">
+  <div class="inner" ld-scroll-listener callback="onScroll">
+    <div class="track-title" ng-click="toggle()">
+      <h3 class="title ff-glober black"><%= track.title %></h3>
+    </div>
+    <div ld-waveform></div>
+    <div class="actions">
+      <button class="ff-thirsty bold" ng-click="toggle()"><i ng-if="!is_playing">Play</i><i ng-if="is_playing">Stop</i></button>
+    </div>
+  </div>
+</div>

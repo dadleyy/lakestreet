@@ -1,0 +1,40 @@
+.content.home
+  @import "partial/nav"
+  @import "partial/twitter-feed"
+
+  height: 100%
+  width: 100%
+  background: white
+
+  > .inner
+    height: 100%
+
+  .home-section
+    min-height: 100%
+    position: relative
+    z-index: 10
+    background: white
+    padding: 40px 0 0 0
+    > h1
+      color: $dark-grey-color
+      text-transform: uppercase
+      text-align: center
+  
+  .intro
+    height: 100%
+    background: white
+    position: relative
+    min-height: 300px
+    z-index: 20
+
+    .intro-inner
+      position: absolute
+      top: 50%
+      width: 100%
+      left: 0px
+
+    .title
+      text-align: center
+      .title-text
+        color: $dark-grey-color
+        text-transform: capitalize

@@ -1,0 +1,42 @@
+nav.main
+  text-align: center
+  padding: 10px 0 0 0
+  .center
+    +clearfix
+    display: inline-block
+    position: relative
+    .ribbon
+      display: none
+  
+  .wicked-button
+    +transition(all 400ms ease)
+    background: transparent
+    box-shadow: none
+    padding: 0
+    float: left
+    margin: 0 5px
+    button
+      overflow: hidden
+      position: relative
+
+    .icon
+      +transition(all 500ms ease)
+      position: absolute
+      left: 50%
+      margin: -15px 0 0 -15px
+      top: 50%
+      &.white
+        opacity: 0.0
+        top: -100%
+
+.scroll-lock.locked
+  nav.main
+    padding: 0 0
+    position: fixed
+    top: 10px
+    width: 100%
+    left: 0px
+    z-index: 400
+    .center
+      position: relative
+      padding: 0 10px 5px 10px

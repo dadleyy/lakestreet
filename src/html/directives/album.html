@@ -1,0 +1,12 @@
+<div class="album" ng-class="{playing: playing}">
+  <div class="inner" ld-scroll-listener callback="onScroll">
+    <div class="album-title">
+      <div class="locker">
+        <h1 class="title ff-thirsty black"><%= album.title %></h1>
+      </div>
+    </div>
+    <div class="track-list">
+      <div ng-repeat="track in album.tracks" ld-track track="track"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+[ld-wicked-button], .wicked-button
+  display: block
+  position: relative
+
+  canvas
+    position: absolute
+    top: -35px
+    left: -35px
+    z-index: 1
+    pointer-events: none
+
+  button
+    position: relative
+    margin: 0
+    padding: 0
+    z-index: 2
+    background: transparent
+    box-shadow: none
+    width: 30px
+    height: 30px
+
+    *[class*='icon']
+      width: 30px
+      height: 30px
+      background-size: 30px 30px

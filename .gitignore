@@ -1,6 +1,13 @@
+.env
 *.swp
 /.sass-cache
+/obj
 /node_modules
 /bower_components
 /public/js
 /public/css
+/public/fonts
+/public/swf
+/public/svg
+/public/web.config
+
