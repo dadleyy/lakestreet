@@ -17,7 +17,7 @@ ld.service('Viewport', ['$window', function($window) {
   Viewport.addListener = function(evt, fn) {
     if(angular.isFunction(fn) && listeners[evt]) {
       listeners[evt].push(fn);
-      resizer();
+      fn();
     }
 
   };
