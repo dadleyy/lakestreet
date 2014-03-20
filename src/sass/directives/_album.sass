@@ -1,13 +1,8 @@
 .album
   position: relative
 
-  > canvas
-    width: 100%
-    height: 100%
-    position: absolute
-    top: 0px
-    left: 0px
-    z-index: 9
+  .album-art
+    position: fixed
 
   > .inner
     +outer-container
@@ -18,7 +13,6 @@
 
   .track-list
     +outer-container
+    background: rgba(255,255,255,0.25)
     .track
-      +span-columns(6)
-      +omega(2n)
       margin-bottom: 20px
