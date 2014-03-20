@@ -56,3 +56,7 @@ grunt
 
 Right now, the project is designed to be served from an apache web server, using php. The web server's virtual host entry should point it's document root at the `.\public` directory. It Is important that the proxy module be loaded and `SSLProxyEngine` is `On`. 
 
+
+## Attribution
+
+All of the music available for playback from the application is original material and subject to copyright from the members of Lake Street Dive. None of the music is in any way property of the authors of this application. The streaming API is provided by Bandcamp, Inc.
