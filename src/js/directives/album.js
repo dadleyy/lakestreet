@@ -1,5 +1,10 @@
 ld.directive('ldAlbum', [function(Viewport, CanvasUtils) {
 
+  var scroll_fade = {
+    buffer: 100,
+    damp: 0.005
+  };
+
   function Album($scope) {
     this.$scope = $scope;
     this.$element = null;
@@ -26,8 +31,8 @@ ld.directive('ldAlbum', [function(Viewport, CanvasUtils) {
   Album.prototype.onScroll = function(page_top) {
     var ele_top = this.$element.offset().top,
         half_window = 0.5 * window.innerHeight,
-        ele_dist = ele_top - (page_top + half_window),
-        opacity = 1 - (ele_dist * 0.0025);
+        ele_dist = ele_top - (page_top + half_window) + scroll_fade.buffer,
+        opacity = 1 - (ele_dist * scroll_fade.damp);
 
     if(opacity < 0)
       opacity = 0;
