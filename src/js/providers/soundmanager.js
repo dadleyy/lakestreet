@@ -1,9 +1,13 @@
 (function(SM) {
 
-var deferred_load;
+var deferred_load,
+    initialized = false;
 
 function finished() {
-  deferred_load.resolve(SM);
+  if(deferred_load)
+    deferred_load.resolve();
+
+  initialized = true;
 }
 
 SM.flashVersion = 9;
@@ -19,14 +23,14 @@ SM.setup({
 
 ld.provider('SoundManager', [function() {
 
-  var SoundManager = {},
-      instance = {},
-      ext = angular.extend,
-      fns = {},
-
+  var instance = null,
       active_sound = null;
 
-  fns.setActiveSound = function(sound) {
+  function SoundManager() { };
+
+  SoundManager.prototype = soundManager;
+
+  SoundManager.prototype.setActiveSound = function(sound) {
     if(active_sound)
       active_sound.stop();
 
@@ -34,14 +38,18 @@ ld.provider('SoundManager', [function() {
   };
 
   SoundManager.route_resolution = ['$q', function($q) {
+    if(initialized)
+      return true;
+
     deferred_load = $q.defer();
-    deferred_load.promise.then(function() {
-      instance = ext(SM, fns);
-    });
+
     return deferred_load.promise;
   }];
 
   SoundManager['$get'] = function() {
+    if(!instance)
+      instance = new SoundManager();
+
     return instance;
   };
 
