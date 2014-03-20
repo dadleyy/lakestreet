@@ -1,5 +1,6 @@
 .album
   position: relative
+  z-index: 1
 
   .album-art
     position: fixed
@@ -10,9 +11,9 @@
     z-index: 10
     padding: 40px 0
 
-
   .track-list
     +outer-container
-    background: rgba(255,255,255,0.25)
     .track
+      +span-columns(6)
+      +omega(2n)
       margin-bottom: 20px
