@@ -70,7 +70,7 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: ['src/js/**/*.js', 'src/html/**/*.html'],
-        tasks: ['clean:scripts','smash', 'ngtemplates', 'uglify']
+        tasks: ['clean:scripts','ngtemplates', 'twitterauth', 'smash', 'uglify']
       },
       stylesheets: {
         files: ['src/sass/**/*.sass'],

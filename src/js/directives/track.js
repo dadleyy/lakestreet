@@ -1,4 +1,4 @@
-ld.directive('ldTrack', ['SoundManager', function(SoundManager) {
+ld.directive('ldTrack', ['SoundManager', 'CAK', function(SoundManager, CAK) {
 
   function Track($scope) {
     this.$scope = $scope;
@@ -12,12 +12,12 @@ ld.directive('ldTrack', ['SoundManager', function(SoundManager) {
     this.element = element;
     this.album = album;
 
-    var stream_url = this.$scope.streaming_url,
+    var stream_url = this.$scope.track.streaming_url,
         stop = this.$scope.stop,
         finished = this.$scope.finished;
 
     this.sound = SoundManager.createSound({
-      url: stream_url,
+      url: [stream_url, CAK].join('&api_key='),
       onstop: stop,
       onfinish: finished 
     });

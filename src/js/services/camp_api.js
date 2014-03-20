@@ -1,9 +1,9 @@
-ld.service('CampApi', ['$resource', 'AK', function($resource, AK) {
+ld.service('CampApi', ['$resource', 'CAK', function($resource, CAK) {
 
   var CampApi = {},
       api_home = "/api/camp",
       ext = angular.extend,
-      defp = { key: AK },
+      defp = { key: CAK },
       band_params, band_url,
       album_params, album_url;
 
