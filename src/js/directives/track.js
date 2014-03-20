@@ -78,6 +78,7 @@ ld.directive('ldTrack', ['SoundManager', function(SoundManager) {
       };
 
       function onScroll(evt, page_top) {
+        /*
         var ele_top = $element.offset().top,
             half_win = window.innerHeight * 0.5,
             mid = page_top + half_win;
@@ -86,6 +87,7 @@ ld.directive('ldTrack', ['SoundManager', function(SoundManager) {
           $element.css({"background":"red"});
         else
           $element.css({"background":"blue"});
+        */
       };
 
       $scope.$on('homescroll', onScroll);
