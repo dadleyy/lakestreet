@@ -1,22 +1,25 @@
 ld.directive('ldTrack', ['SoundManager', function(SoundManager) {
 
-  function Track() {
-    this.$scope = null;
+  function Track($scope) {
+    this.$scope = $scope;
     this.element = null;
     this.album = null;
     this.sound = null;
     this.is_stopping = false;
   };
 
-  Track.prototype.initialize = function($scope, element, album) {
-    this.$scope = $scope;
+  Track.prototype.initialize = function(element, album) {
     this.element = element;
     this.album = album;
 
+    var stream_url = this.$scope.streaming_url,
+        stop = this.$scope.stop,
+        finished = this.$scope.finished;
+
     this.sound = SoundManager.createSound({
-      url: $scope.track.streaming_url,
-      onstop: $scope.stop,
-      onfinish: $scope.finished
+      url: stream_url,
+      onstop: stop,
+      onfinish: finished 
     });
   };
 
@@ -58,9 +61,6 @@ ld.directive('ldTrack', ['SoundManager', function(SoundManager) {
         trackController.play();
       };
 
-      $scope.onScroll = function(page_top, offset) {
-      };
-
       $scope.stop = function() {
         $scope.is_playing = false;
 
@@ -77,7 +77,20 @@ ld.directive('ldTrack', ['SoundManager', function(SoundManager) {
         return $scope[$scope.is_playing ? 'stop' : 'play']();
       };
 
-      trackController.initialize($scope, $element, albumController);
+      function onScroll(evt, page_top) {
+        var ele_top = $element.offset().top,
+            half_win = window.innerHeight * 0.5,
+            mid = page_top + half_win;
+
+        if(ele_top < mid)
+          $element.css({"background":"red"});
+        else
+          $element.css({"background":"blue"});
+      };
+
+      $scope.$on('homescroll', onScroll);
+
+      trackController.initialize($element, albumController);
     }
   }
 
