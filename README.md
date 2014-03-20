@@ -1,4 +1,4 @@
-# Lakestreet - [![Build Status](http://jenkins.sizethreestudios.com/job/lakestreet/badge/icon)](http://jenkins.sizethreestudios.com/job/lakestreet/)
+# Lakestreet                     [![Build Status](http://jenkins.sizethreestudios.com/job/lakestreet/badge/icon)](http://jenkins.sizethreestudios.com/job/lakestreet/)
 
 [Lake Street Dive](www.lakestreetdive.com) is an exceptional band. They have made appearances and many talk radio shows, and even made it to TV on *The Colbert Report* and *Ellen*. Combined with third party apis, this project aims at making their web presence as awesome as they are.
 
