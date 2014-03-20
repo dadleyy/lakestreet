@@ -7,7 +7,16 @@ module.exports = function(config) {
     frameworks: ['jasmine'],
 
     files: [
-      "spec/**/*_spec.js"
+      "bower_components/angular/angular.js",
+      "bower_components/angular-resource/angular-resource.js",
+      "bower_components/angular-route/angular-route.js",
+      "bower_components/angular-mocks/angular-mocks.js",
+      "bower_components/jquery/dist/jquery.js",
+      "bower_components/soundmanager2/script/soundmanager2.js",
+      "obj/app.js",
+      "obj/twitter.js",
+      "obj/templates.js",
+      "spec/**/*_spec.js",
     ],
 
     exclude: [
@@ -27,6 +36,10 @@ module.exports = function(config) {
     autoWatch: true,
 
     browsers: ['PhantomJS'],
+
+    proxies: {
+      '/swf': 'http://lakestreet.sizethreestudios.com/swf'
+    },
 
     singleRun: true
 

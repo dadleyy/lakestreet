@@ -7,7 +7,7 @@ ld.config(['$routeProvider', 'SoundManagerProvider', function($routeProvider, So
       Albums: ['$q', 'CampApi', 'XhrMonitor', 'ALBUM_IDS', function($q, CampApi, XhrMonitor, ALBUM_IDS) {
         var defer = $q.defer(),
             albums = [];
-        
+
         function checkStatus(album) {
           var finished = true;
           

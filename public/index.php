@@ -14,6 +14,5 @@
   </div>
   <div ld-footer></div>
   <script src="/js/app.js?v=<?= $cache_break ?>" type="text/javascript"></script>
-  <script src="/js/templates.min.js?v=<?= $cache_break ?>" type="text/javascript"></script>
 </body>
 </html>

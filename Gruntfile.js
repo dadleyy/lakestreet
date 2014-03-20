@@ -18,7 +18,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
 
     clean: {
-      scripts: ["public/js"],
+      scripts: ["obj", "public/js"],
       stylesheets: ["public/css"],
       soundmanager: ['public/swf'],
       svg: ['public/svg']
@@ -27,6 +27,10 @@ module.exports = function(grunt) {
     smash: {
       build: {
         src: "src/js/lakestreet.js",
+        dest: "obj/app.js"
+      },
+      app: {
+        src: "build.js",
         dest: "public/js/app.js"
       }
     },
@@ -45,8 +49,7 @@ module.exports = function(grunt) {
     uglify: {
       build: {
         files: {
-          'public/js/app.min.js': ['public/js/app.js'],
-          'public/js/templates.min.js': ['public/js/templates.js']
+          'public/js/app.min.js': ['public/js/app.js']
         }
       }
     },
@@ -54,7 +57,7 @@ module.exports = function(grunt) {
     ngtemplates:  {
       build: {
         src: 'src/html/**/*.html',
-        dest: 'public/js/templates.js',
+        dest: 'obj/templates.js',
         options: {
           module: 'lakestreet',
           url: function(url) { 
@@ -105,7 +108,8 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.registerTask('default', ['clean:scripts','clean:stylesheets', 'twitterauth', 'smash','sass','ngtemplates','uglify','svg']);
+  var default_task = ['clean:scripts','clean:stylesheets', 'twitterauth', 'ngtemplates', 'smash','sass','uglify', 'svg']
+  grunt.registerTask('default', default_task);
   grunt.registerTask('soundmanager', ['clean:soundmanager','copy:soundmanager']);
   grunt.registerTask('svg', ['clean:svg', 'copy:svg']);
 
