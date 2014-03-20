@@ -221,6 +221,17 @@ ld.service('CanvasUtils', [function() {
     }
   };
 
+  CanvasUtils.grey = function(data) {
+    for (var i = 0; i < data.length; i+=4) {
+      var r = data[i],
+          g = data[i+1],
+          b = data[i+2],
+          v = (0.2 * r) + (0.2 * g) + (0.2 * b);
+
+      data[i] = data[i+1] = data[i+2] = v
+    }
+  };
+
   return CanvasUtils;
 
 }]);

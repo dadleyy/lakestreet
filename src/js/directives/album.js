@@ -1,4 +1,4 @@
-ld.directive('ldAlbum', ['Viewport', 'CanvasUtils', function(Viewport, CanvasUtils) {
+ld.directive('ldAlbum', [function(Viewport, CanvasUtils) {
 
   function Album($scope) {
     this.$scope = $scope;
@@ -13,54 +13,31 @@ ld.directive('ldAlbum', ['Viewport', 'CanvasUtils', function(Viewport, CanvasUti
 
   Album.prototype.initialize = function($element) {
     this.$element = $element;
+  };
 
-    var image = new Image(),
-        canvas = document.createElement('canvas'),
-        context = canvas.getContext('2d'),
-        image_url = this.$scope.album.large_art_url,
-        cors_url = image_url.replace(/http:\/\/(.*)/i, "http://www.corsproxy.com/$1"),
-        container = this.$element;
-    
-    function draw() {
-      var w = container.width(),
-          h = container.height(),
-          image_data, pixel_data,
-          final_data = [];
-
-      canvas.width = w;
-      canvas.height = h;
-
-      context.drawImage(image, 0, 0, w, h);
-
-      image_data = context.getImageData(0, 0, w, h);
-      pixel_data = image_data.data;
-
-      CanvasUtils.blur(100, pixel_data, w, h);
-      
-      context.putImageData(image_data, 0, 0);
-    };
-
-    image.crossOrigin = "anonymous";
-    image.onload = draw;
-    image.src = cors_url;
-
-    container.append(canvas);
-    Viewport.addListener('resize', draw);
+  Album.prototype.getTop = function() {
+    return this.$element.offset().top;
   };
 
   Album.prototype.playNext = function() {
     console.log('playing next');
   };
 
-  Album.prototype.onScroll = function(page_top, bounding_box) {
-    var page_mid = page_top + window.innerHeight,
-        bottom_buffer = 120;
+  Album.prototype.onScroll = function(page_top) {
+    var ele_top = this.$element.offset().top,
+        half_window = 0.5 * window.innerHeight,
+        ele_dist = ele_top - (page_top + half_window),
+        opacity = 1 - (ele_dist * 0.0025);
 
-    if(bounding_box.bottom + bottom_buffer < page_mid) {
-      this.$element.addClass('passed-mid');
-    } else {
-      this.$element.removeClass('passed-mid');
-    }
+    if(opacity < 0)
+      opacity = 0;
+
+    if(opacity > 1)
+      opacity = 1;
+
+    this.$element.css({
+      opacity: opacity
+    });
   };
 
   Album.$inject = ['$scope'];
@@ -74,9 +51,11 @@ ld.directive('ldAlbum', ['Viewport', 'CanvasUtils', function(Viewport, CanvasUti
     link: function($scope, $element, attr, albumController) { 
       albumController.initialize($element);
 
-      $scope.onScroll = function(page_top, bounding_box) {
-        return albumController.onScroll(page_top, bounding_box);
+      function onScroll(evt, page_top) {
+        return albumController.onScroll(page_top);
       };
+
+      $scope.$on('homescroll', onScroll);
     }
   };
 
