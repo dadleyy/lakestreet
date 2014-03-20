@@ -5,10 +5,8 @@ ld.directive('ldHomeSection', [function() {
     link: function($scope, $element, $attrs) {
 
       function update() {
-        console.log('whoa');
       };
   
-
       $scope.$on('homescroll', update);
     }
   };
