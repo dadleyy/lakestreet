@@ -82,6 +82,7 @@ ld.directive('ldAlbumArt', ['Viewport', 'CanvasUtils', function(Viewport, Canvas
       container.append(canvas);
 
       $scope.$on('homescroll', onScroll);
+      onScroll(null, 0);
     }
   };
 

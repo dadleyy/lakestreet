@@ -21,29 +21,13 @@ ld.directive('ldAlbum', [function(Viewport, CanvasUtils) {
   };
 
   Album.prototype.getTop = function() {
-    return this.$element.offset().top;
+    return this.$element ? this.$element.offset().top : window.innerHeight;
   };
 
   Album.prototype.playNext = function() {
   };
 
   Album.prototype.onScroll = function(page_top) {
-    var ele_top = this.$element.offset().top,
-        half_window = 0.5 * window.innerHeight,
-        ele_dist = ele_top - (page_top + half_window) + scroll_fade.buffer,
-        opacity = 1 - (ele_dist * scroll_fade.damp);
-
-    if(opacity < 0)
-      opacity = 0;
-
-    if(opacity > 1)
-      opacity = 1;
-
-    /*
-    this.$element.css({
-      opacity: opacity
-    });
-    */
   };
 
   Album.$inject = ['$scope'];

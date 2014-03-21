@@ -2,15 +2,10 @@ ld.directive('ldTrack', ['SoundManager', 'CAK', function(SoundManager, CAK) {
 
   function Track($scope) {
     this.$scope = $scope;
-    this.element = null;
+    this.$element = null;
     this.album = null;
     this.sound = null;
     this.is_stopping = false;
-  };
-
-  Track.prototype.initialize = function(element, album) {
-    this.element = element;
-    this.album = album;
 
     var stream_url = this.$scope.track.streaming_url,
         stop = this.$scope.stop,
@@ -21,6 +16,11 @@ ld.directive('ldTrack', ['SoundManager', 'CAK', function(SoundManager, CAK) {
       onstop: stop,
       onfinish: finished 
     });
+  };
+
+  Track.prototype.initialize = function($element, album) {
+    this.$element = $element;
+    this.album = album;
   };
 
   Track.prototype.addListener = function() {

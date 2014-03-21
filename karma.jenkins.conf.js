@@ -36,19 +36,19 @@ module.exports = function(config) {
 
     port: 9876,
 
-    colors: true,
+    colors: false,
 
     logLevel: config.LOG_INFO,
 
     autoWatch: false,
 
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
     proxies: {
       '/swf': 'http://lakestreet.sizethreestudios.com/swf'
     },
 
-    singleRun: true 
+    singleRun: true
 
   });
 

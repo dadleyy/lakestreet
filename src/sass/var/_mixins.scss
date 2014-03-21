@@ -3,7 +3,7 @@
   #{$property}: calc(#{$expression}); 
 }
 
-@mixin diagonal-stripe($degree:45deg, $line-color:$dark-grey-color) {
+@mixin diagonal-stripes($degree:45deg, $line-color:$dark-grey-color) {
   @include linear-gradient(
     $degree, 
     transparent 0%, 
@@ -14,6 +14,15 @@
     transparent 100%
   );
   background-size: 5px 5px;
+}
+
+@mixin dots() {
+  @include background(
+    linear-gradient(45deg, rgba(0,0,0,0.05) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.05) 75%, rgba(0,0,0,0.05)), 
+    linear-gradient(45deg, rgba(0,0,0,0.05) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.05) 75%, rgba(0,0,0,0.05))
+  );  
+  background-size: 60px 60px;
+  background-position: 0 0, 30px 30px
 }
 
 @mixin shrink-title($start-size:120px, $decrease:10px) {
