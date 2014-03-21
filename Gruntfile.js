@@ -56,12 +56,12 @@ module.exports = function(grunt) {
 
     ngtemplates:  {
       build: {
-        src: 'src/html/**/*.html',
+        src: 'src/html/templates/**/*.html',
         dest: 'obj/templates.js',
         options: {
           module: 'lakestreet',
           url: function(url) { 
-            return url.replace(/^src\/html\/(.*)\/(.*)\.html$/,'$1.$2');
+            return url.replace(/^src\/html\/templates\/(.*)\/(.*)\.html$/,'$1.$2');
           }
         }
       }
@@ -79,6 +79,10 @@ module.exports = function(grunt) {
       svg: {
         files: ['src/svg/**/*.svg'],
         tasks: ['clean:svg', 'copy:svg']
+      },
+      html:{
+        files: ['src/html/index.hml'],
+        tasks: ['copy:index']
       }
     },
 
@@ -94,6 +98,12 @@ module.exports = function(grunt) {
         src: ['src/svg/*'],
         dest: 'public/svg/',
         flatten: true
+      },
+      index: {
+        expand: true,
+        src: ['src/html/index.html'],
+        dest: 'public/',
+        flatten: true
       }
     },
 
@@ -108,7 +118,7 @@ module.exports = function(grunt) {
 
   });
 
-  var default_task = ['clean:scripts','clean:stylesheets', 'twitterauth', 'ngtemplates', 'smash','sass','uglify', 'svg']
+  var default_task = ['clean:scripts','clean:stylesheets', 'twitterauth', 'ngtemplates', 'smash','sass','uglify', 'svg', 'copy:index']
   grunt.registerTask('default', default_task);
   grunt.registerTask('soundmanager', ['clean:soundmanager','copy:soundmanager']);
   grunt.registerTask('svg', ['clean:svg', 'copy:svg']);
