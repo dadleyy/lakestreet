@@ -1,0 +1,15 @@
+doctype html
+html(ng-app='lakestreet')
+head
+  title lakestreet dive interactive
+  link(href='/fonts/index.css', type='text/css', rel='stylesheet')
+  link(href='/css/app.css', type='text/css', rel='stylesheet')
+body.preload(data-ld-scroll-nav, data-ld-scroll-broadcaster, data-broadcast-name='homescroll')
+  div(ld-load-splash='ld-load-splash')
+  .page
+    div(ng-view='ng-view')
+  div(ld-footer='ld-footer')
+  if min
+    script(src='/js/app.min.js', type='text/javascript')
+  else
+    script(src='/js/app.js', type='text/javascript')
