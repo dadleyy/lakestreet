@@ -27,9 +27,6 @@ ld.directive('ldAlbum', [function(Viewport, CanvasUtils) {
   Album.prototype.playNext = function() {
   };
 
-  Album.prototype.onScroll = function(page_top) {
-  };
-
   Album.$inject = ['$scope'];
 
   return {
@@ -44,12 +41,6 @@ ld.directive('ldAlbum', [function(Viewport, CanvasUtils) {
       $element.css({
         'z-index': ($scope.index + 1)
       });
-
-      function onScroll(evt, page_top) {
-        return albumController.onScroll(page_top);
-      };
-
-      $scope.$on('homescroll', onScroll);
     }
   };
 

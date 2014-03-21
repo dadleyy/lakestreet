@@ -1,6 +1,15 @@
-ld.directive('ldAlbumArt', ['Viewport', 'CanvasUtils', function(Viewport, CanvasUtils) {
+ld.directive('ldAlbumArt', ['$filter', 'Viewport', 'CanvasUtils', function($filter, Viewport, CanvasUtils) {
 
   var blur_amt = 25;
+
+  function to_px(val) {
+    return $filter('StyleStrs')(val, 'px');
+  };
+
+  function to_clip(top, right, bottom, left) {
+    var obj = { top: top, right: right, bottom: bottom, left: left };
+    return $filter('StyleStrs')(obj, 'clip');
+  };
 
   return {
     restrict: 'EA',
@@ -16,7 +25,8 @@ ld.directive('ldAlbumArt', ['Viewport', 'CanvasUtils', function(Viewport, Canvas
           cors_url = image_url.replace(/http:\/\/(.*)/i, "http://www.corsproxy.com/$1"),
           container = $element,
           natural_width = 0,
-          natural_height = 0;
+          natural_height = 0,
+          current_top = window.innerHeight;
       
       function draw() {
         var container_width = container.width(),
@@ -44,35 +54,31 @@ ld.directive('ldAlbumArt', ['Viewport', 'CanvasUtils', function(Viewport, Canvas
         context.putImageData(image_data, 0, 0);
       };
 
-      function px(num) {
-        return [num, 'px'].join('');
+      function resize() {
+        draw();
+        onScroll(null, 0);
       };
 
       function initialize() {
         natural_width = image.naturalWidth;
         natural_height = image.naturalHeight;
-        Viewport.addListener('resize', draw);
+        Viewport.addListener('resize', resize);
       };
 
-      function clip(top_v, right_v, bottom_v, left_v) {
-        var t = px(top_v),
-            r = px(right_v),
-            b = px(bottom_v),
-            l = px(left_v),
-            val = [t, r, b ,l].join(',');
+      function clip() {
+        var t = current_top,
+            r = window.innerWidth - 20,
+            b = window.innerHeight,
+            l = 10;
 
-        return ['rect(', val, ')'].join('');
+        $element.css({
+          'clip': to_clip(t, r, b, l)
+        });
       };
 
       function onScroll(evt, page_top) {
-        var album_top = albumController.getTop(),
-            width = window.innerWidth - 20,
-            height = window.innerHeight,
-            clip_top = album_top - page_top;
-
-        $element.css({
-          'clip': clip(clip_top, width, height, 10)
-        });
+        current_top = albumController.getTop() - page_top;
+        clip();
       };
 
       image.crossOrigin = "anonymous";
@@ -82,7 +88,6 @@ ld.directive('ldAlbumArt', ['Viewport', 'CanvasUtils', function(Viewport, Canvas
       container.append(canvas);
 
       $scope.$on('homescroll', onScroll);
-      onScroll(null, 0);
     }
   };
 
