@@ -11,6 +11,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-karma');
   grunt.loadTasks('tasks');
 
   grunt.initConfig({
@@ -32,6 +33,12 @@ module.exports = function(grunt) {
       app: {
         src: "build.js",
         dest: "public/js/app.js"
+      }
+    },
+
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js'
       }
     },
 

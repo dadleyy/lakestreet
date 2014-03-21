@@ -1,6 +1,7 @@
 .env
 .DS_Store
 *.swp
+test-results.xml
 /.sass-cache
 /obj
 /node_modules
