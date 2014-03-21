@@ -1,9 +1,11 @@
 .env
+.DS_Store
 *.swp
 /.sass-cache
 /obj
 /node_modules
 /bower_components
+/public/index.html
 /public/js
 /public/css
 /public/fonts
