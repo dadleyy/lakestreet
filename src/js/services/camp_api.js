@@ -1,7 +1,7 @@
 ld.service('CampApi', ['$resource', 'CAK', function($resource, CAK) {
 
   var CampApi = {},
-      api_home = "/api/camp",
+      api_home = "http://cpx.sizethreestudios.com/api/camp",
       ext = angular.extend,
       defp = { key: CAK },
       band_params, band_url,
