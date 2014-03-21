@@ -51,7 +51,8 @@ ld.directive('ldTrack', ['SoundManager', 'CAK', function(SoundManager, CAK) {
     link: function($scope, $element, $attrs, $controllers) {
       var sound = null,
           trackController = $controllers[1],
-          albumController = $controllers[0];
+          albumController = $controllers[0],
+          locked = false;
 
       $scope.is_playing = false;
       $scope.dist = 0;
@@ -78,16 +79,21 @@ ld.directive('ldTrack', ['SoundManager', 'CAK', function(SoundManager, CAK) {
       };
 
       function onScroll(evt, page_top) {
-        /*
         var ele_top = $element.offset().top,
             half_win = window.innerHeight * 0.5,
-            mid = page_top + half_win;
+            mid = page_top + half_win + (half_win * 0.5);
 
-        if(ele_top < mid)
-          $element.css({"background":"red"});
-        else
-          $element.css({"background":"blue"});
-        */
+        if(ele_top < mid) {
+          if(!locked)
+            $element.addClass('in-view');
+
+          locked = true
+        } else {
+          if(locked) 
+            $element.removeClass('in-view');
+
+          locked = false;
+        }
       };
 
       $scope.$on('homescroll', onScroll);
