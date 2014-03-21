@@ -25,7 +25,7 @@
   background-position: 0 0, 30px 30px
 }
 
-@mixin shrink-title($start-size:120px, $decrease:10px) {
+@mixin shrink-title($start-size:90px, $decrease:5px) {
   font-size: $start-size;
   @include media(min-width 1000px max-width 1100px) {
     font-size: $start-size - (1 * $decrease);

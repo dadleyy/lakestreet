@@ -30,9 +30,9 @@
   .album-title
     padding: 0 0 20px 0
     .title
-      color: adjust_hue(saturate(lighten($dark-grey-color, 36), 49), 99)
+      +shrink-title
+      color: lighten(adjust_hue(saturate(#414141, 34), 360), 20)
       text-align: center
-      font-size: 106px
 
   .track-list
     +outer-container
