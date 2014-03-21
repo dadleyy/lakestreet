@@ -2,8 +2,8 @@ ld.filter('twitterDate', [function() {
 
   return function(created_at) {
     var system_date = new Date(Date.parse(created_at)),
-          user_date = window['__today__'] || new Date(),
-          diff = Math.floor((user_date - system_date) / 1000);
+        user_date = window['__today__'] || new Date(),
+        diff = Math.floor((user_date - system_date) / 1000);
 
     if (diff <= 1)
       return "just now";
