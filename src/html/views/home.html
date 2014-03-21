@@ -31,8 +31,7 @@
     </div>
 
     <div class="home-section discography" ld-scroll-section name="discography">
-      <h1 class="ff-glober black">discography</h1>
-      <div ng-repeat="album in albums" ld-album album="album"></div>
+      <div ng-repeat="album in albums" ld-album album="album" index="$index"></div>
     </div>
 
     <div class="home-section calendar" ld-scroll-section name="calendar">

@@ -1,5 +1,6 @@
 .content.home
   @import "partial/nav"
+  @import "partial/discography"
   @import "partial/twitter-feed"
 
   height: 100%
@@ -17,10 +18,24 @@
     z-index: 10
     background: white
     padding: 40px 0 0 0
+
+    &:after
+      +diagonal-stripe
+      background-size: 10px 10px
+      background-repeat: repeat-x
+      content: ''
+      display: block
+      position: absolute
+      left: 0px
+      top: 0px
+      height: 10px
+      width: 100%
+
     > h1
       color: $dark-grey-color
       text-transform: uppercase
       text-align: center
+      padding: 0 0 20px 0
   
   .intro
     height: 100%

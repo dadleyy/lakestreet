@@ -2,6 +2,22 @@
   position: relative
   z-index: 1
 
+  &:after
+    +diagonal-stripe(45deg, #fff)
+    background-size: 10px 10px
+    background-repeat: repeat-x
+    content: ''
+    display: block
+    position: absolute
+    left: 0px
+    top: -10px
+    height: 10px
+    width: 100%
+
+  &:first-child
+    &:after
+      display: none
+
   .album-art
     position: fixed
 
@@ -11,9 +27,23 @@
     z-index: 10
     padding: 40px 0
 
+  .album-title
+    padding: 0 0 20px 0
+    .title
+      color: adjust_hue(saturate(lighten($dark-grey-color, 36), 49), 99)
+      text-align: center
+      font-size: 106px
+
   .track-list
     +outer-container
     .track
       +span-columns(6)
       +omega(2n)
+      +transform(translate(0px, 40px))
+      +transition(all 500ms ease)
+      opacity: 0.0
       margin-bottom: 20px
+      &.in-view
+        +transform(translate(0px, 0px))
+        opacity: 1.0
+        

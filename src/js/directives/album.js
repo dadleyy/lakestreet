@@ -25,7 +25,6 @@ ld.directive('ldAlbum', [function(Viewport, CanvasUtils) {
   };
 
   Album.prototype.playNext = function() {
-    console.log('playing next');
   };
 
   Album.prototype.onScroll = function(page_top) {
@@ -40,9 +39,11 @@ ld.directive('ldAlbum', [function(Viewport, CanvasUtils) {
     if(opacity > 1)
       opacity = 1;
 
+    /*
     this.$element.css({
       opacity: opacity
     });
+    */
   };
 
   Album.$inject = ['$scope'];
@@ -51,10 +52,14 @@ ld.directive('ldAlbum', [function(Viewport, CanvasUtils) {
     replace: true,
     restrict: 'EA',
     templateUrl: 'directives.album',
-    scope: { album: '=' },
+    scope: { album: '=', index: '=' },
     controller: Album,
     link: function($scope, $element, attr, albumController) { 
       albumController.initialize($element);
+
+      $element.css({
+        'z-index': ($scope.index + 1)
+      });
 
       function onScroll(evt, page_top) {
         return albumController.onScroll(page_top);
