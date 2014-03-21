@@ -11,6 +11,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadTasks('tasks');
 
@@ -56,6 +57,24 @@ module.exports = function(grunt) {
       }
     },
 
+    jade: {
+      debug: {
+        files: {
+          "public/index.html": "src/jade/index.jade"
+        }
+      },
+      release: {
+        options: {
+          data: {
+            min: true
+          }
+        },
+        files: {
+          "public/index.html": "src/jade/index.jade"
+        }
+      }
+    },
+
     uglify: {
       build: {
         files: {
@@ -90,9 +109,9 @@ module.exports = function(grunt) {
         files: ['src/svg/**/*.svg'],
         tasks: ['clean:svg', 'copy:svg']
       },
-      html:{
-        files: ['src/html/index.hml'],
-        tasks: ['copy:index']
+      jade: {
+        files: ['src/jade/**/*.jade'],
+        tasks: ['jade']
       }
     },
 
@@ -128,7 +147,18 @@ module.exports = function(grunt) {
 
   });
 
-  var default_task = ['clean:scripts','clean:stylesheets', 'twitterauth', 'ngtemplates', 'smash','sass','uglify', 'svg', 'copy:index']
+  var default_task = [
+    'clean:scripts',
+    'clean:stylesheets', 
+    'twitterauth', 
+    'ngtemplates', 
+    'smash',
+    'sass', 
+    'uglify', 
+    'svg', 
+    'soundmanager',
+    'jade:debug'
+  ];
   grunt.registerTask('default', default_task);
   grunt.registerTask('soundmanager', ['clean:soundmanager','copy:soundmanager']);
   grunt.registerTask('svg', ['clean:svg', 'copy:svg']);
