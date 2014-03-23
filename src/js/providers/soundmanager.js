@@ -17,7 +17,7 @@ SM.flash9Options = {
 };
 
 SM.setup({
-  debugMode: true,
+  debugMode: false,
   preferFlash: true,
   flashVersion: 9,
   url: '/swf/',
