@@ -1,4 +1,4 @@
-ld.directive('ldLoadSplash', [ function() {
+ld.directive('ldLoadSplash', ['$rootScope', function($rootScope) {
 
   return {
     restrict: 'EA',
@@ -15,12 +15,12 @@ ld.directive('ldLoadSplash', [ function() {
 
       function hide() {
         $scope.hidden = true;
-        $scope.$digest();
+        $rootScope.$digest();
       }
 
       function fade() {
         $scope.loading = false;
-        $scope.$digest();
+        $rootScope.$digest();
         hide_to = setTimeout(hide, hide_time);
       }
 
