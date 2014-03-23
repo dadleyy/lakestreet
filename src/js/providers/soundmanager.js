@@ -12,9 +12,12 @@ function finished() {
 
 SM.flashVersion = 9;
 SM.preferFlash = true;
+SM.flash9Options = {
+  useWaveformData: true 
+};
 
 SM.setup({
-  debugMode: false,
+  debugMode: true,
   preferFlash: true,
   flashVersion: 9,
   url: '/swf/',
@@ -24,7 +27,8 @@ SM.setup({
 ld.provider('SoundManager', [function() {
 
   var instance = null,
-      active_sound = null;
+      active_sound = null,
+      $rootScope;
 
   function SoundManager() { };
 
@@ -46,12 +50,14 @@ ld.provider('SoundManager', [function() {
     return deferred_load.promise;
   }];
 
-  SoundManager['$get'] = function() {
+  SoundManager['$get'] = ['$rootScope', function() {
+    $rootScope = arguments[0];
+
     if(!instance)
       instance = new SoundManager();
 
     return instance;
-  };
+  }];
 
   return SoundManager;
 
