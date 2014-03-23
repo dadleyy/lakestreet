@@ -13,6 +13,7 @@ module.exports = function(config) {
       "bower_components/angular-mocks/angular-mocks.js",
       "bower_components/jquery/dist/jquery.js",
       "bower_components/soundmanager2/script/soundmanager2.js",
+      "bower_components/d3/d3.js",
       "obj/app.js",
       "obj/twitter.js",
       "obj/templates.js",

@@ -1,4 +1,6 @@
-ld.directive('ldWaveform', ['Viewport', 'Loop', function(Viewport, Loop) {
+ld.directive('ldWaveform', ['Viewport', 'Loop', '$filter', function(Viewport, Loop, $filter) {
+
+  var point_count = 256;
 
   return {
     restrict: 'EA',
@@ -7,67 +9,76 @@ ld.directive('ldWaveform', ['Viewport', 'Loop', function(Viewport, Loop) {
     require: '^ldTrack',
     scope: { active: '&' },
     link: function($scope, $element, $attrs, trackController) {
-      var canvas = document.createElement('canvas'),
-          context = canvas.getContext('2d'),
-          width, height,
+      var canvas = document.createElement('div'),
+          context = d3.select(canvas).append('svg'),
+          path = context.append('path'),
+          width = $element.width(),
+          height = 200,
           points = [];
 
       function update(sound) {
-        var hw = width * 0.5,
+        var deg_inc = (Math.PI * 2) / point_count,
+            hw = width * 0.5,
             hh = height * 0.5,
-            inc = 360 / points.length,
-            time = sound && sound.position ? sound.position : 0;
+            radius = hh - 10,
+            time = (sound ? sound.position : 0) * 0.005;
+        
+        radius += Math.sin(time % (Math.PI * 2)) * 10;
 
-        for(var i = 0; i < points.length; i++) {
-          var deg = inc * i,
-              rad = height * 0.2,
-              trad = 0,
-              y = hh + (Math.sin(deg) * (rad + trad)),
-              x = hw + (Math.cos(deg) * (rad + trad)); 
-          
-          points[i].x = x;
-          points[i].y = y;
-        };
+        for(var i = 0; i < point_count; i++) {
+          var point = points[i],
+              radians = deg_inc * i,
+              x_pos = hw + (Math.cos(radians) * radius),
+              y_pos = hh + (Math.sin(radians) * radius);
+
+          point.x = x_pos;
+          point.y = y_pos;
+        }
 
         draw();
       };
 
+      function moveTo(point) {
+        return ["M", point.x, point.y].join(' ');
+      };
+
+      function lineTo(point) {
+        return ["L", point.x, point.y].join(' ');
+      };
+
       function draw() {
-        context.clearRect(0,0, width, height);
-
-        context.fillStyle = "#fdfdfd"
-        context.beginPath();
-
-        for(var i = 0; i < points.length; i++) {
-          var x = points[i].x,
-              y = points[i].y;
-
+        var p = "";
+        
+        for(var i = 0; i < point_count; i++) {
           if(i === 0)
-            context.moveTo(x, y);
-          else
-            context.lineTo(x, y);
+            p += moveTo(points[i]);
+          
+          p += lineTo(points[i]);
 
-          if(i === points.length - 1)
-            context.lineTo(points[0].x, points[0].y);
+          if(i === point_count -1)
+            p += "Z";
         }
 
-        context.fill();
+        path.attr('d', p).attr("fill", "#f0f0f0");
       };
 
       function resize() {
-        width = $element.width(),
+        width = $element.width();
         height = $element.height();
-        
-        canvas.width = width;
-        canvas.height = height;
+
+        context.attr({
+          width: width,
+          height: height
+        });
 
         update();
       };
 
-      for(var i = 0; i < 256; i++) {
+      for(var i = 0; i < point_count + 1; i++) {
         points.push({x: i, y: i});
       }
     
+      context.attr({width: width, height: height});
       $element.append(canvas);
       trackController.addListener(update);
       Viewport.addListener('resize', resize);
