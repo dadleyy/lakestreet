@@ -31,6 +31,9 @@ ld.service('Viewport', ['$window', 'Loop', function($window, Loop) {
       if(!loop_id)
         loop_id = Loop.add(run);
 
+      if(cancel_to)
+        clearTimeout(cancel_to);
+
       cancel_to = setTimeout(cancel, 30);
     });
   };
