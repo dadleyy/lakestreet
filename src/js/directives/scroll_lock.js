@@ -5,10 +5,9 @@ ld.directive('ldScrollLock', [function() {
     replace: true,
     transclude: true,
     templateUrl: 'directives.scroll_lock',
-    scope: { 'broadcastName': '@' },
+    scope: { },
     link:function($scope, $element, $attrs) {
       var edge = ($attrs['lockTo'] || 'top').toLowerCase(),
-          b_name = $scope.broadcastName,
           locked = false;
 
       function lock() {

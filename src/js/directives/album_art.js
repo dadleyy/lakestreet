@@ -76,7 +76,7 @@ ld.directive('ldAlbumArt', ['$filter', 'Viewport', 'CanvasUtils', function($filt
         });
       };
 
-      function onScroll(evt, page_top) {
+      function onScroll(page_top) {
         current_top = albumController.getTop() - page_top;
         clip();
       };
@@ -87,7 +87,7 @@ ld.directive('ldAlbumArt', ['$filter', 'Viewport', 'CanvasUtils', function($filt
 
       container.append(canvas);
 
-      $scope.$on('homescroll', onScroll);
+      Viewport.addListener('scroll', onScroll);
     }
   };
 
