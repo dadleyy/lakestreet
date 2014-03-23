@@ -1,4 +1,5 @@
 import "footer"
+import "nav"
 import "load_splash"
 import "album"
 import "album_art"

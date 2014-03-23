@@ -1,4 +1,4 @@
-ld.directive('ldTrack', ['SoundManager', 'CAK', function(SoundManager, CAK) {
+ld.directive('ldTrack', ['SoundManager', 'CAK', 'Viewport', function(SoundManager, CAK, Viewport) {
 
   function Track($scope) {
     this.$scope = $scope;
@@ -78,7 +78,7 @@ ld.directive('ldTrack', ['SoundManager', 'CAK', function(SoundManager, CAK) {
         return $scope[$scope.is_playing ? 'stop' : 'play']();
       };
 
-      function onScroll(evt, page_top) {
+      $scope.onScroll = function(page_top) {
         var ele_top = $element.offset().top,
             half_win = window.innerHeight * 0.5,
             mid = page_top + half_win + (half_win * 0.5);
@@ -95,8 +95,6 @@ ld.directive('ldTrack', ['SoundManager', 'CAK', function(SoundManager, CAK) {
           locked = false;
         }
       };
-
-      $scope.$on('homescroll', onScroll);
 
       trackController.initialize($element, albumController);
     }

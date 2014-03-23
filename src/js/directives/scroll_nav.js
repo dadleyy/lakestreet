@@ -1,4 +1,4 @@
-ld.directive('ldScrollNav', [function() {
+ld.directive('ldScrollNav', ['Viewport', function(Viewport) {
 
   function ScrollNav($scope) {
     this.sections = { };
@@ -14,9 +14,11 @@ ld.directive('ldScrollNav', [function() {
 
   ScrollNav.prototype.goTo = function(dest) {
     var $dest = this.sections[dest],
-        d_top = $dest.offset().top;
+        d_top = $dest.offset().top,
+        current_top = Viewport.getTop(),
+        diff = Math.abs(d_top - current_top);
 
-    this.root.stop().animate({scrollTop: d_top}, 800);
+    this.root.stop().animate({scrollTop: d_top}, diff * 0.5);
   };
 
   ScrollNav.prototype.setRoot = function(element) {
