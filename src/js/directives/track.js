@@ -1,4 +1,4 @@
-ld.directive('ldTrack', ['SoundManager', 'CAK', 'Viewport', function(SoundManager, CAK, Viewport) {
+ld.directive('ldTrack', ['SoundManager', 'CAK', 'Viewport', 'Loop', function(SoundManager, CAK, Viewport, Loop) {
 
   function Track($scope) {
     this.$scope = $scope;
@@ -6,15 +6,23 @@ ld.directive('ldTrack', ['SoundManager', 'CAK', 'Viewport', function(SoundManage
     this.album = null;
     this.sound = null;
     this.is_stopping = false;
+    this.callbacks = [];
 
-    var stream_url = this.$scope.track.streaming_url,
-        stop = this.$scope.stop,
-        finished = this.$scope.finished;
+    var self = this,
+        stream_url = this.$scope.track.streaming_url;
+
+    function stop() { 
+      self.$scope.stop() 
+    };
+
+    function finished() {
+      self.$scope.finished();
+    };
 
     this.sound = SoundManager.createSound({
       url: [stream_url, CAK].join('&api_key='),
       onstop: stop,
-      onfinish: finished 
+      onfinish: finished
     });
   };
 
@@ -23,12 +31,22 @@ ld.directive('ldTrack', ['SoundManager', 'CAK', 'Viewport', function(SoundManage
     this.album = album;
   };
 
-  Track.prototype.addListener = function() {
+  Track.prototype.addListener = function(fn) {
+    if(angular.isFunction(fn))
+      this.callbacks.push(fn);
+  };
+
+  Track.prototype.update = function() {
+    for(var i = 0; i < this.callbacks.length; i++)
+      this.callbacks[i](this.sound);
   };
 
   Track.prototype.play = function() {
     SoundManager.setActiveSound(this.sound);
     this.sound.play();
+
+    this.loop_id = Loop.add(this.$scope.playing);
+
     this.album.setPlayState(true);
   };
 
@@ -37,6 +55,7 @@ ld.directive('ldTrack', ['SoundManager', 'CAK', 'Viewport', function(SoundManage
     this.sound.stop();
     this.album.setPlayState(false);
     this.is_stopping = false;
+    Loop.remove(this.loop_id);
   };
 
   Track.$inject = ['$scope'];
@@ -63,15 +82,23 @@ ld.directive('ldTrack', ['SoundManager', 'CAK', 'Viewport', function(SoundManage
       };
 
       $scope.stop = function() {
+        console.log('stopping: ' + $scope.track.title);
+        // flag the track as not playing
         $scope.is_playing = false;
 
+        // if we're not in a stop callback
         if(trackController.is_stopping)
           return false;
 
+        // run the controller's stop
         trackController.stop();
       };
 
       $scope.finished = function() {
+      };
+
+      $scope.playing = function() {
+        trackController.update();
       };
      
       $scope.toggle = function() {
