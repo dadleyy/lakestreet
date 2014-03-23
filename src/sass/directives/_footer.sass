@@ -1,9 +1,75 @@
 footer
   &.main
+    +transition(bottom 500ms ease)
     z-index: 100
     position: fixed
-    bottom: 0px
+    bottom: -50px
     left: 0px
-    height: 10px
-    width: 100%
+    right: 0px
     background: $dark-grey-color
+    box-shadow: 0px -2px 0px -1px rgba(0, 0, 0, 0.75), inset 0px 2px 0px -1px rgba(255,255,255,0.05)
+    cursor: pointer
+
+    &.open
+      bottom: 0px
+
+    .opener
+      display: block
+      position: absolute
+      left: 50%
+      top: 3px
+      width: 4px
+      height: 4px
+      margin: 0px 0px 0px -2px
+      background: darken($dark-grey-color, 25%)
+      border-radius: 2px
+      z-index: 101
+
+      &:before, &:after
+        content: ''
+        display: block
+        position: absolute
+        top: 0px
+        width: 4px
+        height: 4px
+        margin: 0px 0px 0px -2px
+        background: darken($dark-grey-color, 25%)
+        border-radius: 2px
+        z-index: 101
+      
+      &:before
+        left: -10px
+
+      &:after
+        right: -10px
+      
+  > .inner
+    padding: 10px 0
+    position: relative
+    margin-top: 10px
+    background-color: darken($dark-grey-color, 10%)
+    box-shadow: inset 0px 2px 0px -1px rgba(0, 0, 0, 0.75), 0px -2px 0px -1px rgba(255,255,255,0.05)
+    .center
+      +outer-container
+      text-align: center
+
+    .buttons
+      +outer-container
+      display: inline-block
+      margin: 0 auto 
+
+      .link
+        display: inline-block
+        margin: 0px 10px 0 0
+        position: relative
+        a 
+          position: absolute
+          width: 100%
+          height: 100%
+          top: 0
+          left: 0
+
+        i[class*='icon-']
+          width: 30px
+          height: 30px
+          background-size: 30px 30px

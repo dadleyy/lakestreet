@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg  version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+  <g>
+    <path d="M354.27,407.291H0.5l157.231-302.582H511.5L354.27,407.291z" id="filler"></path>
+  </g>
+  <script type="application/ecmascript"> <![CDATA[
+    var href = document.defaultView.location.href,
+        color = null;
+
+    if ( -1 != href.indexOf("?") ) {
+      var param_list = href.split("?")[1].split(/&|;/),
+          param_count = param_list.length;
+          
+      for (var p = 0; param_count > p; p++) {
+        var c_param = param_list[p],
+            key_arr = c_param.split('='),
+            name = key_arr[0],
+            value = key_arr[1];
+
+        if(name === 'color' && value)
+          color = value;
+      }
+    }
+
+    var logo = document.getElementById("filler");
+    logo.setAttribute("fill", color);
+  ]]></script>
+</svg>
