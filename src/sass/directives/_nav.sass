@@ -1,17 +1,20 @@
 nav.main
+  +transition(padding 500ms ease)
   +transform(translateZ(0))
   text-align: center
-  padding: 0 0 0 0
+  padding: 10px 0 0 0
 
   .center
     +clearfix
+    +transition(transform 400ms ease)
+    +transform(translatey(-50px))
     display: inline-block
     position: relative
     .ribbon
       display: none
   
   .wicked-button
-    +transition(all 400ms ease)
+    +transform(translatey(50px))
     background: transparent
     box-shadow: none
     padding: 0
@@ -43,12 +46,18 @@ nav.main
     margin-left: -80px
 
     .center
+      +transform(translatey(0px))
       position: relative
       padding: 0 10px 3px 10px
       background: white 
       border: 10px solid $dark-grey-color
       border-radius: 5px
+
+      .wicked-button
+        +transform(translatey(0px))
+        
       &:after
+        +transform(translatey(0px))
         content: ''
         display: block
         position: absolute

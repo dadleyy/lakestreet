@@ -26,7 +26,8 @@ ld.directive('ldAlbumArt', ['$filter', 'Viewport', 'CanvasUtils', function($filt
           container = $element,
           natural_width = 0,
           natural_height = 0,
-          current_top = window.innerHeight;
+          current_top = window.innerHeight,
+          bounce_to = null;
       
       function draw() {
         var container_width = container.width(),
@@ -55,8 +56,17 @@ ld.directive('ldAlbumArt', ['$filter', 'Viewport', 'CanvasUtils', function($filt
       };
 
       function resize() {
-        draw();
-        onScroll(null, 0);
+
+        function bounce() {
+          draw();
+          var page_top = Viewport.getTop();
+          onScroll(page_top);
+        };
+
+        if(bounce_to)
+          clearTimeout(bounce_to);
+
+        bounce_to = setTimeout(bounce, 30);
       };
 
       function initialize() {

@@ -21,7 +21,7 @@ ld.directive('ldWaveform', ['Viewport', 'Loop', '$filter', function(Viewport, Lo
             hw = width * 0.5,
             hh = height * 0.5,
             radius = hh - 10,
-            time = (sound ? sound.position : 0) * 0.005;
+            time = new Date().getTime() * 0.005;
         
         radius += Math.sin(time % (Math.PI * 2)) * 10;
 
