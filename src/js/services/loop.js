@@ -9,7 +9,8 @@ ld.service('Loop', ['$filter', function($filter) {
       vendors = ['ms', 'moz', 'webkit', 'o'],
       request = window.requestAnimationFrame,
       cancel = window.cancelAnimationFrame,
-      uid_index = 0;
+      uid_index = 0,
+      current_time = new Date().getTime();
 
   for(var x = 0; x < vendors.length && !request; ++x) {
     request = window[vendors[x]+'RequestAnimationFrame'];
@@ -44,11 +45,14 @@ ld.service('Loop', ['$filter', function($filter) {
   };
   
   function update() {
+    var t = new Date().getTime();
     for(var i = 0; i < callbacks.length; i++)
-      callbacks[i]();
+      callbacks[i](t - current_time);
 
     if(running && callbacks.length > 0)
       raf_id = request(update);
+
+    current_time = t;
   };
 
   function loopUid() {
@@ -60,7 +64,7 @@ ld.service('Loop', ['$filter', function($filter) {
     if(!angular.isFunction(fn))
       return null;
 
-    var wrap = function() { fn(); };
+    var wrap = function(dt) { fn(dt); };
     wrap.$lid = loopUid();
     callbacks.push(wrap);
     
