@@ -10,7 +10,7 @@ ld.service('Loop', ['$filter', function($filter) {
       request = window.requestAnimationFrame,
       cancel = window.cancelAnimationFrame,
       uid_index = 0,
-      current_time = new Date().getTime();
+      current_time = Date.now() * 0.001;
 
   for(var x = 0; x < vendors.length && !request; ++x) {
     request = window[vendors[x]+'RequestAnimationFrame'];
@@ -19,7 +19,7 @@ ld.service('Loop', ['$filter', function($filter) {
 
   if(!request) {
     request = function(callback, element) {
-      var cur_time = new Date().getTime(),
+      var cur_time = Date.now(),
           time_to_call = Math.max(0, 16 - (cur_time - last_time)),
           id = window.setTimeout(function(){ callback(cur_time + time_to_call); }, time_to_call);
 
@@ -35,6 +35,7 @@ ld.service('Loop', ['$filter', function($filter) {
   }
 
   function start() {
+    current_time = Date.now() * 0.001;
     running = true;
     raf_id = request(update);
   };
@@ -45,9 +46,11 @@ ld.service('Loop', ['$filter', function($filter) {
   };
   
   function update() {
-    var t = new Date().getTime();
+    var t = Date.now() * 0.001,
+        dt = t - current_time;
+
     for(var i = 0; i < callbacks.length; i++)
-      callbacks[i](t - current_time);
+      callbacks[i](dt);
 
     if(running && callbacks.length > 0)
       raf_id = request(update);

@@ -7,14 +7,19 @@ ld.directive('ldLoadSplash', ['$rootScope', 'Loop', function($rootScope, Loop) {
     scope: { },
     link: function($scope, $element, $attrs) {
       var loop_id = null,
-          svg = d3.select($element[0]).append('svg'),
+          svg = d3.select($element.find('.orb').get(0)).append('svg'),
           grp = svg.append('g'),
           path = grp.append('path'),
           fade_to = null,
           hide_to = null,
           hide_time = 1600,
           fade_time = 1400,
-          inner_radius = 12;
+          inner_radius = 10,
+          vert_count = 5,
+          rotation = 0,
+          rotation_velocity = Math.PI / 10,
+          rad_indx = 0,
+          rad_velocity = rotation_velocity * 10;
 
       $scope.loading = false;
       $scope.hidden = false;
@@ -32,30 +37,44 @@ ld.directive('ldLoadSplash', ['$rootScope', 'Loop', function($rootScope, Loop) {
       };
 
       function radiusMod(dt) {
-        var time = new Date().getTime() * 0.01,
-            plus = Math.sin(time % (Math.PI * 2));
+        var plus = Math.sin(rad_indx);
+        
+        rad_indx += rad_velocity * (dt || 0.01);
 
-        return plus * 5;
+        if(rad_indx > Math.PI * 2)
+          rad_indx = 0;
+
+        return plus * 10;
+      };
+
+      function colorFlux(dt) {
+        var time = new Date().getTime() * 0.001,
+            red = parseInt(Math.sin(time + 0) * 25 + 180, 10),
+            green = parseInt(Math.sin(time + 2) * 25 + 180, 10),
+            blue = parseInt(Math.sin(time + 4) * 25 + 180, 10),
+            rgba = ['rgba(', [red, green, blue, 1].join(','), ')'].join('');
+
+        return rgba;
       };
 
       function update(dt) {
-        var inc = (Math.PI * 2) * 0.25,
+        var inc = (Math.PI * 2) / vert_count,
             center = 25,
             outer_radius = 15 + radiusMod(dt),
             p = "";
 
-        for(var i = 0; i < 4; i++) {
-          var c_rads = i * inc,
+        for(var i = 0; i < vert_count; i++) {
+          var c_rads = (i * inc) + rotation,
               c_xpos = (Math.cos(c_rads) * outer_radius) + center,
               c_ypos = (Math.sin(c_rads) * outer_radius) + center,
               c_coords = [Math.ceil(c_xpos), Math.ceil(c_ypos)].join(' ');
               // the point position
-              p_rads = (i + 0.5) * inc,
+              p_rads = ((i + 0.5) * inc) + rotation,
               p_xpos = (Math.cos(p_rads) * inner_radius) + center,
               p_ypos = (Math.sin(p_rads) * inner_radius) + center,
               p_coords = [Math.ceil(p_xpos), Math.ceil(p_ypos)].join(' ');
 
-          if(i === 4 -1)
+          if(i === vert_count -1)
             p = ["M", p_coords, p].join(' ');
 
           var c = ["Q", c_coords, p_coords].join(' ');
@@ -64,8 +83,12 @@ ld.directive('ldLoadSplash', ['$rootScope', 'Loop', function($rootScope, Loop) {
 
         p += "Z";
 
+        rotation += rotation_velocity * (dt || 0.01);
+        if(rotation > Math.PI * 2)
+          rotation = 0;
+
         path.attr({d: p});
-        path.attr({fill: "rgba(255,255,255,1.0)"});
+        path.attr({fill: colorFlux(dt)});
       };
 
       function routeStart() {
@@ -84,6 +107,7 @@ ld.directive('ldLoadSplash', ['$rootScope', 'Loop', function($rootScope, Loop) {
       };
 
       function routeFinish() {
+        fade_to = setTimeout(fade, fade_time);
       };
 
       function routeFail() {
