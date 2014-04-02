@@ -1,0 +1,41 @@
+.tooltip, [ld-tooltip] 
+  display: inline-block
+  position: absolute
+  width: 100%
+  height: 100%
+  top: 0
+  left: 0
+  text-align: center
+
+  span
+    +transition(top 300ms ease, opacity 400ms ease, bottom 300ms ease)
+    position: absolute
+    display: inline-block
+    font-size: 12px
+    background: $dark-grey-color
+    color: white
+    line-height: 20px
+    padding: 2px 5px
+    opacity: 0.0
+    box-sizing: content-box
+    border-radius: 2px
+
+  &.top
+    span
+      top: -20px
+
+  &.bottom
+    span
+      bottom: -22px
+
+  &.over
+    span
+      opacity: 1.0
+
+    &.top
+      span
+        top: -25px
+
+    &.bottom
+      span
+        bottom: -27px

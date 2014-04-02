@@ -79,16 +79,22 @@ ld.directive('ldLoadSplash', ['$rootScope', 'Loop', function($rootScope, Loop) {
 
         if(hide_to)
           clearTimeout(hide_to);
+
+        fade_to = setTimeout(fade, fade_time);
       };
 
       function routeFinish() {
-        //fade_to = setTimeout(fade, fade_time);
+      };
+
+      function routeFail() {
       };
 
       $scope.$on('$routeChangeStart', routeStart);
       $scope.$on('$routeChangeSuccess', routeFinish);
+      $scope.$on('$routeChangeError', routeFail);
       svg.attr({width: 50, height: 50});
       update();
+
     }
   }
 
