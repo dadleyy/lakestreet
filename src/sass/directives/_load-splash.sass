@@ -60,9 +60,15 @@
       text-align: center
       line-height: $dimension 
 
+  .orb
+    +transition(opacity 400ms ease)
+    opacity: 1.0
+
   &.finished
     background-color: rgba(0,0,0,0.0)
     .spinner 
+      opacity: 0.0
+    .orb
       opacity: 0.0
 
   &.hidden
