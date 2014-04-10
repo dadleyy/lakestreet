@@ -1,4 +1,4 @@
-ld.directive('ldWickedButton', ['Loop', function(Loop) {
+ld.directive('ldWickedButton', ['Loop', 'ICONS', function(Loop, ICONS) {
 
   function rand(min, max) {
     min = min || -5;
@@ -97,24 +97,34 @@ ld.directive('ldWickedButton', ['Loop', function(Loop) {
     replace: true,
     templateUrl: 'directives.wicked_button',
     transclude: true,
-    scope: { text: "@", click: '&' },
+    scope: { text: '@', click: '&', icon: '@', silent: '@' },
     link: function($scope, $element, $attrs) {
       var canvas = document.createElement('canvas'),
           context = canvas.getContext('2d'),
-          $canvas = angular.element(canvas),
-          effect = new Effect(context);
+          canvas = angular.element(canvas),
+          effect = new Effect(context),
+          button = $element.find('button'),
+          icon = d3.select(button[0]).append('svg'),
+          icon_width = 30,
+          icon_height = 30;
 
-      $canvas.attr('width', '100px').attr('height', '100px');
+      canvas.attr('width', '100px').attr('height', '100px');
+      var path = icon.attr({width: icon_width, height: icon_height}).append('path');
+
+      if(ICONS[$scope.icon])
+        path.attr({d: ICONS[$scope.icon], fill: '#414141'});
 
       $scope.over = function() {
-        effect.begin();
+        if(!$scope.silent)
+          effect.begin();
       };
 
       $scope.out = function() {
-        effect.end();
+        if(!$scope.silent)
+          effect.end();
       };
 
-      $element.append($canvas);
+      $element.append(canvas);
     }
   };
 
