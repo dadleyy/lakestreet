@@ -11,13 +11,23 @@
   height: 100%
   z-index: 100
 
-  svg
+  .error
+    +transition(top 400ms ease)
     position: absolute
-    width: 50px
-    height: 50px
+    top: -40px
+    width: 100%
+    text-align: center
+    color: rgba(200, 80, 80, 1.0)
+    &.vis
+      top: 10px
+
+  .orb 
+    position: absolute
+    width: 0px
+    height: 0px
     left: 50%
     top: 50%
-    margin: 100px 0 0 -25px
+    margin: 100px 0 0 0
 
   .spinner
     +transition(opacity 400ms ease)
