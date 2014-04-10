@@ -15,7 +15,10 @@ ld.directive('ldLoadSplash', ['$rootScope', 'Loop', function($rootScope, Loop) {
           hide_time = 1600,
           fade_time = 1400,
           inner_radius = 10,
+          o_radius = 15,
           vert_count = 5,
+          orb_height = 100,
+          orb_width = 100,
           rotation = 0,
           rotation_velocity = Math.PI / 10,
           rad_indx = 0,
@@ -23,6 +26,7 @@ ld.directive('ldLoadSplash', ['$rootScope', 'Loop', function($rootScope, Loop) {
 
       $scope.loading = false;
       $scope.hidden = false;
+      $scope.failed = false;
 
       function hide() {
         $scope.hidden = true;
@@ -47,11 +51,15 @@ ld.directive('ldLoadSplash', ['$rootScope', 'Loop', function($rootScope, Loop) {
         return plus * 10;
       };
 
+      function getColor(time) {
+        return parseInt(Math.sin(time) * 25 + 180, 10);
+      };
+
       function colorFlux(dt) {
         var time = new Date().getTime() * 0.001,
-            red = parseInt(Math.sin(time + 0) * 25 + 180, 10),
-            green = parseInt(Math.sin(time + 2) * 25 + 180, 10),
-            blue = parseInt(Math.sin(time + 4) * 25 + 180, 10),
+            red = $scope.failed ? 200 : getColor(time),
+            green = $scope.failed ? 80 : getColor(time + 2),
+            blue = $scope.failed ? 80 : getColor(time + 4),
             rgba = ['rgba(', [red, green, blue, 1].join(','), ')'].join('');
 
         return rgba;
@@ -59,9 +67,12 @@ ld.directive('ldLoadSplash', ['$rootScope', 'Loop', function($rootScope, Loop) {
 
       function update(dt) {
         var inc = (Math.PI * 2) / vert_count,
-            center = 25,
-            outer_radius = 15 + radiusMod(dt),
+            center = orb_width * 0.5,
+            outer_radius = o_radius + radiusMod(dt),
             p = "";
+
+        if(outer_radius < o_radius)
+          outer_radius = o_radius;
 
         for(var i = 0; i < vert_count; i++) {
           var c_rads = (i * inc) + rotation,
@@ -102,8 +113,6 @@ ld.directive('ldLoadSplash', ['$rootScope', 'Loop', function($rootScope, Loop) {
 
         if(hide_to)
           clearTimeout(hide_to);
-
-        fade_to = setTimeout(fade, fade_time);
       };
 
       function routeFinish() {
@@ -111,14 +120,19 @@ ld.directive('ldLoadSplash', ['$rootScope', 'Loop', function($rootScope, Loop) {
       };
 
       function routeFail() {
+        $scope.failed = true;
       };
 
       $scope.$on('$routeChangeStart', routeStart);
       $scope.$on('$routeChangeSuccess', routeFinish);
       $scope.$on('$routeChangeError', routeFail);
-      svg.attr({width: 50, height: 50});
-      update();
 
+      // size and position the svg
+      svg.attr({width: orb_height, height: orb_width}).style({
+        'margin-left': (-orb_width * 0.5) + 'px'
+      });
+
+      update();
     }
   }
 
