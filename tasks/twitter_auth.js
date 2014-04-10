@@ -32,8 +32,12 @@ module.exports = function(grunt) {
 
     function receive(data) {
       var packet = JSON.parse(['',data].join(''));
+
       if(save_file)
         grunt.file.write(save_file, decorate(packet.access_token));
+
+      grunt.log.ok("finished!");
+
       defer();
     }
 
@@ -44,6 +48,7 @@ module.exports = function(grunt) {
     });
 
     req.on('error', function(e) {
+      grunt.log.error("unable to retreive a twitter bearer token");
       defer();
     });
 
