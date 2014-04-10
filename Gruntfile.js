@@ -22,8 +22,7 @@ module.exports = function(grunt) {
     clean: {
       scripts: ["obj", "public/js"],
       stylesheets: ["public/css"],
-      soundmanager: ['public/swf'],
-      svg: ['public/svg']
+      soundmanager: ['public/swf']
     },
 
     smash: {
@@ -105,10 +104,6 @@ module.exports = function(grunt) {
         files: ['src/sass/**/*.sass'],
         tasks: ['clean:stylesheets','sass']
       },
-      svg: {
-        files: ['src/svg/**/*.svg'],
-        tasks: ['clean:svg', 'copy:svg']
-      },
       jade: {
         files: ['src/jade/**/*.jade'],
         tasks: ['jade']
@@ -120,12 +115,6 @@ module.exports = function(grunt) {
         expand: true,
         src: ['bower_components/soundmanager2/swf/*'],
         dest: 'public/swf/',
-        flatten: true
-      },
-      svg: {
-        expand: true,
-        src: ['src/svg/*'],
-        dest: 'public/svg/',
         flatten: true
       },
       index: {
@@ -155,12 +144,10 @@ module.exports = function(grunt) {
     'smash',
     'sass', 
     'uglify', 
-    'svg', 
     'soundmanager',
     'jade:debug'
   ];
   grunt.registerTask('default', default_task);
   grunt.registerTask('soundmanager', ['clean:soundmanager','copy:soundmanager']);
-  grunt.registerTask('svg', ['clean:svg', 'copy:svg']);
 
 };
