@@ -105,11 +105,13 @@ ld.directive('ldWickedButton', ['Loop', 'ICONS', function(Loop, ICONS) {
           effect = new Effect(context),
           button = $element.find('button'),
           icon = d3.select(button[0]).append('svg'),
-          icon_width = 30,
-          icon_height = 30;
+          icon_width = 40,
+          icon_height = 40;
 
       canvas.attr('width', '100px').attr('height', '100px');
-      var path = icon.attr({width: icon_width, height: icon_height}).append('path');
+      var path = icon.attr({width: icon_width, height: icon_height}).append('g').attr({
+        'transform': ['translate(', icon_height * 0.5, ',', icon_height * 0.5, ')'].join('')
+      }).append('path');
 
       if(ICONS[$scope.icon])
         path.attr({d: ICONS[$scope.icon], fill: '#414141'});
@@ -117,11 +119,13 @@ ld.directive('ldWickedButton', ['Loop', 'ICONS', function(Loop, ICONS) {
       $scope.over = function() {
         if(!$scope.silent)
           effect.begin();
+        
+        path.transition().attr({'transform':'scale(1.2)'});
       };
 
       $scope.out = function() {
-        if(!$scope.silent)
-          effect.end();
+        effect.end();
+        path.transition().attr({'transform':'scale(1.0)'});
       };
 
       $element.append(canvas);
