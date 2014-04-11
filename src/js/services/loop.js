@@ -10,7 +10,8 @@ ld.service('Loop', ['$filter', function($filter) {
       request = window.requestAnimationFrame,
       cancel = window.cancelAnimationFrame,
       uid_index = 0,
-      current_time = Date.now() * 0.001;
+      current_time = Date.now() * 0.001,
+      check_to = null;
 
   for(var x = 0; x < vendors.length && !request; ++x) {
     request = window[vendors[x]+'RequestAnimationFrame'];
@@ -28,7 +29,7 @@ ld.service('Loop', ['$filter', function($filter) {
     };
   }
 
-  if(cancel) {
+  if(!cancel) {
     cancel = function(id) {
       clearTimeout(id);
     };
@@ -40,11 +41,6 @@ ld.service('Loop', ['$filter', function($filter) {
     raf_id = request(update);
   };
 
-  function stop() {
-    running = false;
-    cancel(raf_id);
-  };
-  
   function update() {
     var t = Date.now() * 0.001,
         dt = t - current_time;
@@ -52,8 +48,11 @@ ld.service('Loop', ['$filter', function($filter) {
     for(var i = 0; i < callbacks.length; i++)
       callbacks[i](dt);
 
-    if(running && callbacks.length > 0)
+    if(running)
       raf_id = request(update);
+   
+    clearTimeout(check_to);
+    check_to = setTimeout(checkEnd, 10);
 
     current_time = t;
   };
@@ -61,6 +60,11 @@ ld.service('Loop', ['$filter', function($filter) {
   function loopUid() {
     uid_index ++;
     return btoa([uid_index,'id'].join(''));
+  };
+
+  function checkEnd() {
+    if(callbacks.length === 0)
+      running = false;
   };
 
   Loop.add = function(fn) {
@@ -86,9 +90,6 @@ ld.service('Loop', ['$filter', function($filter) {
     }
 
     callbacks.splice(indx, 1);
-
-    if(callbacks.length === 0)
-      stop();
   };
 
   return Loop;
