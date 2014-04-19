@@ -12,11 +12,9 @@ ld.directive('ldTrack', ['SoundManager', 'CAK', 'Viewport', 'Loop', function(Sou
         stream_url = this.$scope.track.streaming_url;
 
     function stop() { 
-      self.$scope.stop() 
     };
 
     function finished() {
-      self.$scope.finished();
     };
 
     this.sound = SoundManager.createSound({
@@ -48,9 +46,12 @@ ld.directive('ldTrack', ['SoundManager', 'CAK', 'Viewport', 'Loop', function(Sou
     this.loop_id = Loop.add(this.$scope.playing);
 
     this.album.setPlayState(true);
+
+    this.$scope.is_playing = true;
   };
 
   Track.prototype.stop = function() {
+    this.$scope.is_playing = false;
     this.is_stopping = true;
     this.sound.stop();
     this.album.setPlayState(false);
@@ -77,20 +78,10 @@ ld.directive('ldTrack', ['SoundManager', 'CAK', 'Viewport', 'Loop', function(Sou
       $scope.dist = 0;
 
       $scope.play = function() {
-        $scope.is_playing = true;
         trackController.play();
       };
 
       $scope.stop = function() {
-        console.log('stopping: ' + $scope.track.title);
-        // flag the track as not playing
-        $scope.is_playing = false;
-
-        // if we're not in a stop callback
-        if(trackController.is_stopping)
-          return false;
-
-        // run the controller's stop
         trackController.stop();
       };
 
