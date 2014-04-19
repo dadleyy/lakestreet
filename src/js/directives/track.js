@@ -1,4 +1,4 @@
-ld.directive('ldTrack', ['SoundManager', 'CAK', 'Viewport', 'Loop', function(SoundManager, CAK, Viewport, Loop) {
+ld.directive('ldTrack', ['SoundManager', 'CAK', 'Viewport', function(SoundManager, CAK, Viewport) {
 
   function Track($scope) {
     this.$scope = $scope;
@@ -8,19 +8,39 @@ ld.directive('ldTrack', ['SoundManager', 'CAK', 'Viewport', 'Loop', function(Sou
     this.is_stopping = false;
     this.callbacks = [];
 
-    var self = this,
-        stream_url = this.$scope.track.streaming_url;
+    var _self = this,
+        stream_url = this.$scope.track.streaming_url,
+        started = false;
 
-    function stop() { 
+    function stopped() { 
+      $scope.is_playing = false;
+      _self.album.setPlayState(false);
+      // make sure the play button knows to be stopped
+      $scope.$broadcast('trackStop');
+      started = false;
     };
 
     function finished() {
     };
 
+    function loaded() {
+    };
+
+    function update() {
+      if(started)
+        return false;
+
+      started = true;
+      $scope.$broadcast('trackStart');
+    };
+
     this.sound = SoundManager.createSound({
       url: [stream_url, CAK].join('&api_key='),
-      onstop: stop,
-      onfinish: finished
+      onstop: stopped,
+      onfinish: finished,
+      onload: loaded,
+      whileplaying: update,
+      volume: 0
     });
   };
 
@@ -29,34 +49,21 @@ ld.directive('ldTrack', ['SoundManager', 'CAK', 'Viewport', 'Loop', function(Sou
     this.album = album;
   };
 
-  Track.prototype.addListener = function(fn) {
-    if(angular.isFunction(fn))
-      this.callbacks.push(fn);
-  };
-
-  Track.prototype.update = function() {
-    for(var i = 0; i < this.callbacks.length; i++)
-      this.callbacks[i](this.sound);
-  };
-
   Track.prototype.play = function() {
+    // make sure the sound manager provider knows this sound is playing
     SoundManager.setActiveSound(this.sound);
+    // actually start the sound
     this.sound.play();
-
-    this.loop_id = Loop.add(this.$scope.playing);
-
-    this.album.setPlayState(true);
-
     this.$scope.is_playing = true;
+    this.$scope.$broadcast('trackPlay');
   };
 
   Track.prototype.stop = function() {
-    this.$scope.is_playing = false;
-    this.is_stopping = true;
     this.sound.stop();
-    this.album.setPlayState(false);
-    this.is_stopping = false;
-    Loop.remove(this.loop_id);
+  };
+
+  Track.prototype.getState = function() {
+    return this.$scope.is_playing;
   };
 
   Track.$inject = ['$scope'];
@@ -83,9 +90,6 @@ ld.directive('ldTrack', ['SoundManager', 'CAK', 'Viewport', 'Loop', function(Sou
 
       $scope.stop = function() {
         trackController.stop();
-      };
-
-      $scope.finished = function() {
       };
 
       $scope.playing = function() {
