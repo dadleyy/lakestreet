@@ -106,7 +106,8 @@ ld.directive('ldWickedButton', ['Loop', 'ICONS', function(Loop, ICONS) {
           button = $element.find('button'),
           icon = d3.select(button[0]).append('svg'),
           icon_width = 40,
-          icon_height = 40;
+          icon_height = 40,
+          color = $attrs['color'] || '#414141';
 
       canvas.attr('width', '100px').attr('height', '100px');
       var path = icon.attr({width: icon_width, height: icon_height}).append('g').attr({
@@ -114,7 +115,7 @@ ld.directive('ldWickedButton', ['Loop', 'ICONS', function(Loop, ICONS) {
       }).append('path');
 
       if(ICONS[$scope.icon])
-        path.attr({d: ICONS[$scope.icon], fill: '#414141'});
+        path.attr({d: ICONS[$scope.icon], fill: color});
 
       $scope.over = function() {
         if(!$scope.silent)
