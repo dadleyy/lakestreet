@@ -17,7 +17,8 @@
     "angular-resource": "~1.2.13",
     "soundmanager2": "*",
     "jquery": "~2.1.0",
-    "d3": "~3.4.3"
+    "d3": "~3.4.3",
+    "d3plugins": "https://github.com/d3/d3-plugins.git"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.14"

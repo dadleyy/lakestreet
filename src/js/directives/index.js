@@ -1,6 +1,7 @@
 import "footer"
 import "nav"
 import "load_splash"
+import "play_button"
 import "album"
 import "album_art"
 import "track"
