@@ -2,6 +2,6 @@ ld.controller('HomeController', ['$scope', 'Albums', 'Events', 'Timeline', funct
 
   $scope.albums = Albums;
   $scope.tweets = Timeline;
-  $scope.tour_events = Events;
+  $scope.events = Events;
 
 }]);
