@@ -3,6 +3,7 @@ var dotenv = require('dotenv');
 module.exports = function(grunt) {
 
   dotenv.load();
+  watch_options = { interrupt: true };
 
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -98,15 +99,18 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: ['src/js/**/*.js', 'src/html/**/*.html'],
-        tasks: ['clean:scripts','ngtemplates', 'twitterauth', 'smash', 'uglify']
+        tasks: ['clean:scripts','ngtemplates', 'twitterauth', 'smash'],
+        options: watch_options
       },
       stylesheets: {
         files: ['src/sass/**/*.sass'],
-        tasks: ['clean:stylesheets','sass']
+        tasks: ['clean:stylesheets','sass'],
+        options: watch_options
       },
       jade: {
         files: ['src/jade/**/*.jade'],
-        tasks: ['jade']
+        tasks: ['jade'],
+        options: watch_options
       }
     },
 

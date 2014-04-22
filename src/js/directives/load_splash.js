@@ -7,7 +7,8 @@ ld.directive('ldLoadSplash', ['$rootScope', 'Loop', function($rootScope, Loop) {
     scope: { },
     link: function($scope, $element, $attrs) {
       var loop_id = null,
-          svg = d3.select($element.find('.orb').get(0)).append('svg'),
+          orb = $element.find('.orb').get(0),
+          svg = d3.select(orb).append('svg'),
           grp = svg.append('g'),
           path = grp.append('path'),
           fade_to = null,
