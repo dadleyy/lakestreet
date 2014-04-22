@@ -3,7 +3,8 @@ var dotenv = require('dotenv');
 module.exports = function(grunt) {
 
   dotenv.load();
-  watch_options = { interrupt: true };
+  var watch_options = { interrupt: true },
+      pkg = grunt.file.readJSON('package.json');
 
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -13,17 +14,20 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-jade');
+  grunt.loadNpmTasks('grunt-contrib-compress');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadTasks('tasks');
 
   grunt.initConfig({
 
-    pkg: grunt.file.readJSON('package.json'),
+    pkg: pkg,
 
     clean: {
+      target: ['target'],
       scripts: ["obj", "public/js"],
       stylesheets: ["public/css"],
-      soundmanager: ['public/swf']
+      soundmanager: ['public/swf'],
+      debug: ['public/js/*.js', '!public/js/*.min.js']
     },
 
     smash: {
@@ -129,6 +133,17 @@ module.exports = function(grunt) {
       }
     },
 
+    compress: {
+      release: {
+        options: {
+          mode: 'tar',
+          archive: ['target/lakestreet-v', pkg.version, '.tar'].join('')
+        },
+        expand: true,
+        src: 'public/**'
+      }
+    },
+
     twitterauth: {
       lakestreet: {
         key: process.env['TWITTER_KEY'],
@@ -141,6 +156,7 @@ module.exports = function(grunt) {
   });
 
   var default_task = [
+    'clean:target',
     'clean:scripts',
     'clean:stylesheets', 
     'twitterauth', 
@@ -153,5 +169,6 @@ module.exports = function(grunt) {
   ];
   grunt.registerTask('default', default_task);
   grunt.registerTask('soundmanager', ['clean:soundmanager','copy:soundmanager']);
+  grunt.registerTask('package', default_task.concat('clean:debug', 'compress:release'));
 
 };

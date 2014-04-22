@@ -1,6 +1,6 @@
 {
   "name": "lakestreet",
-  "version": "0.0.0",
+  "version": "1.1.1",
   "description": "just a fun website for the awesome band lakestreetdive",
   "author": "Danny Hadley",
   "license": "MIT",
@@ -29,6 +29,7 @@
     "karma-phantomjs-launcher": "^0.1.2",
     "karma-chrome-launcher": "~0.1.2",
     "karma-junit-reporter": "^0.2.1",
-    "grunt-karma": "^0.8.2"
+    "grunt-karma": "^0.8.2",
+    "grunt-contrib-compress": "^0.8.0"
   }
 }
