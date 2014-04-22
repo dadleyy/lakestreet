@@ -13,4 +13,4 @@ test-results.xml
 /public/swf
 /public/svg
 /public/web.config
-
+/target
