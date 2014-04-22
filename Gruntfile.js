@@ -169,6 +169,6 @@ module.exports = function(grunt) {
   ];
   grunt.registerTask('default', default_task);
   grunt.registerTask('soundmanager', ['clean:soundmanager','copy:soundmanager']);
-  grunt.registerTask('package', default_task.concat('clean:debug', 'compress:release'));
+  grunt.registerTask('package', default_task.concat('clean:debug', 'jade:release', 'compress:release'));
 
 };
