@@ -37,15 +37,30 @@ ld.directive('ldWaveform', ['Loop', function(Loop) {
           vert_count = 8,
           vert_inc = (Math.PI * 2) / vert_count,
           apex = 0,
+          apex_velocity = 3,
           apex_buffer = 1,
+          circle_radius = radius,
+          radius_velocity = Math.PI * 2,
+          radius_mod = 0,
           loop_id = null;
 
       function update(dt) {
+        circle_radius += Math.sin(radius_mod) * 5;
         draw();
 
-        apex += 2 * dt;
+        apex += apex_velocity * dt;
         if(apex > vert_count)
           apex = 0;
+        
+        radius_mod += radius_velocity * dt;
+        circle_radius = radius;
+
+        if(radius_mod > Math.PI * 2)
+          radius_mod = 0;
+      };
+
+      function isPlaying() {
+        return trackController.$scope.is_playing;
       };
 
       function draw() {
@@ -53,8 +68,10 @@ ld.directive('ldWaveform', ['Loop', function(Loop) {
             lower_bound = apex - apex_buffer,
             upper_bound = apex + apex_buffer;
 
+        circle.attr({opacity: 0.0});
+
         for(var i = 0; i < vert_count; i++) {
-          var apex_dist = trackController.$scope.is_playing ? indexDistance(i, apex, apex_buffer, vert_count) : 0,
+          var apex_dist = isPlaying() ? indexDistance(i, apex, apex_buffer, vert_count) : 0,
               mod_radius = apex_radius + (addt_radius * apex_dist),
               // the control point coordinates
               c_rads = i * vert_inc,
@@ -75,8 +92,12 @@ ld.directive('ldWaveform', ['Loop', function(Loop) {
 
         p += "Z";
 
-        circle.attr({r: radius, fill: 'transparent', stroke: '#fff', strokeWidth: 1});
+        circle.attr({
+          'r': circle_radius,
+          'transform': ['rotate(', (radius_mod * 180) / Math.PI, ')'].join('')
+        });
         path.attr({d: p, fill: '#fff'});
+        circle.attr({"opacity": 1.0});
       };
 
       function start() {
@@ -85,10 +106,15 @@ ld.directive('ldWaveform', ['Loop', function(Loop) {
 
       function stop() {
         Loop.remove(loop_id);
+        apex = 0;
+        circle_radius = radius;
+        radius_mod = 0;
+        draw();
       };
 
       svg.attr({width: width, height: height});
-      group.attr({transform: ['translate(', (width * 0.5), ',', (height * 0.5), ')'].join('')});
+      group.attr({'transform': ['translate(', (width * 0.5), ',', (height * 0.5), ')'].join('')});
+      circle.attr({'fill': 'transparent', 'stroke': '#fff', 'stroke-width': 2});
 
       $scope.$on('trackStart', start);
       $scope.$on('trackStop', stop);

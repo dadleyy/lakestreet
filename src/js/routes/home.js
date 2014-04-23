@@ -36,7 +36,7 @@ ld.config(['$routeProvider', 'SoundManagerProvider', function($routeProvider, So
       }],
       Events: ['$q', 'TownApi', function($q, TownApi) {
         var events = TownApi.Artist.events({artist_name: "lakestreetdive"});
-        return events.$promise;
+        return events;
       }],
       Timeline: ['$q', 'TwitterApi', function($q, TwitterApi) {
         var timeline = TwitterApi.Timeline.get({screen_name: 'lakestreetdive'});

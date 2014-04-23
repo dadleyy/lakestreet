@@ -3,7 +3,7 @@ var dotenv = require('dotenv');
 module.exports = function(grunt) {
 
   dotenv.load();
-  var watch_options = { interrupt: true },
+  var watch_options = { interrupt: false },
       pkg = grunt.file.readJSON('package.json');
 
   grunt.loadNpmTasks('grunt-contrib-clean');
