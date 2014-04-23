@@ -140,7 +140,7 @@ module.exports = function(grunt) {
           archive: ['target/lakestreet-v', pkg.version, '.tar'].join('')
         },
         expand: true,
-        src: 'public/**'
+        src: ['public/**', 'public/.htaccess']
       }
     },
 
