@@ -1,7 +1,7 @@
 ld.service('TownApi', ['$resource', function($resource) {
 
   var TownApi = {},
-      api_home = "http://cpx.sizethreestudios.com/api/town",
+      api_home = "/api/town",
       artist_params,
       artist_url;
 
