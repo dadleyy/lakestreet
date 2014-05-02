@@ -15,6 +15,7 @@ module.exports = function(config) {
       "bower_components/soundmanager2/script/soundmanager2.js",
       "obj/app.js",
       "obj/twitter.js",
+      "obj/camp.js",
       "obj/templates.js",
       "spec/**/*_spec.js",
     ],

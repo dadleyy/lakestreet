@@ -16,6 +16,7 @@ module.exports = function(config) {
       "bower_components/d3/d3.js",
       "obj/app.js",
       "obj/twitter.js",
+      "obj/camp.js",
       "obj/templates.js",
       "spec/**/*_spec.js",
     ],
