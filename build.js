@@ -9,6 +9,7 @@ import "bower_components/d3/d3"
 import "bower_components/d3plugins/superformula/superformula"
 import "obj/app"
 import "obj/twitter"
+import "obj/camp"
 import "obj/templates"
 
 })();

@@ -103,7 +103,7 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: ['src/js/**/*.js', 'src/html/**/*.html'],
-        tasks: ['clean:scripts','ngtemplates', 'twitterauth', 'smash'],
+        tasks: ['clean:scripts','ngtemplates', 'twitterauth', 'keyfile:campapi', 'smash'],
         options: watch_options
       },
       stylesheets: {
@@ -151,6 +151,15 @@ module.exports = function(grunt) {
         save_to: 'obj/twitter.js',
         module: 'lakestreet'
       }
+    },
+    
+    keyfile: {
+      campapi: {
+        dest: 'obj/camp.js',
+        module: 'lakestreet',
+        name: 'CAK',
+        key: process.env['CAMP_APIKEY']
+      }
     }
 
   });
@@ -160,6 +169,7 @@ module.exports = function(grunt) {
     'clean:scripts',
     'clean:stylesheets', 
     'twitterauth', 
+    'keyfile:campapi',
     'ngtemplates', 
     'smash',
     'sass', 
